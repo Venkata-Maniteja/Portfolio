@@ -1,0 +1,1939 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#050507" />
+<title>Venkata Nandamuri — Senior Native Apple-Platforms Engineer</title>
+<meta name="description" content="Senior native engineer with 11+ years shipping Swift & SwiftUI across iOS, iPadOS, macOS, tvOS, watchOS and visionOS. AI-native builder. Live Activities, Dynamic Island, Combine, MCP." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23050507'/%3E%3Ctext x='50' y='66' font-family='Space Grotesk, system-ui' font-size='52' font-weight='700' fill='%23ffffff' text-anchor='middle'%3EV%3C/text%3E%3C/svg%3E" />
+<style>
+  /* ---------------- Tokens — Apple-style ---------------- */
+  :root{
+    --bg:           #000000;
+    --bg-2:         #0a0a0a;
+    --surface:      #161616;
+    --surface-2:    #1d1d1f;
+    --border:       rgba(255,255,255,0.10);
+    --border-2:     rgba(255,255,255,0.18);
+    --text:         #f5f5f7;
+    --muted:        #86868b;
+    --dim:          #6e6e73;
+
+    /* one accent — Apple's dark-mode blue */
+    --blue:         #2997ff;
+    --blue-hover:   #5db1ff;
+
+    /* legacy aliases (kept for any older selectors — all resolve to the single accent) */
+    --indigo:       #2997ff;
+    --pink:         #2997ff;
+    --yellow:       #2997ff;
+    --green:        #2997ff;
+    --cyan:         #2997ff;
+
+    /* "Gradients" — flattened to solid Apple blue for a monochrome accent */
+    --grad-primary: #2997ff;
+    --grad-cool:    #2997ff;
+    --grad-hot:     #2997ff;
+
+    --ff-display: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", system-ui, sans-serif;
+    --ff-body:    -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter", system-ui, sans-serif;
+    --ff-mono:    "SF Mono", ui-monospace, "JetBrains Mono", monospace;
+
+    --r-sm: 8px;
+    --r-md: 14px;
+    --r-lg: 22px;
+    --r-xl: 32px;
+    --r-pill: 999px;
+
+    --max: 1240px;
+    --gutter: clamp(20px, 4vw, 56px);
+
+    --ease: cubic-bezier(.22,.61,.36,1);
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+  html, body{ margin:0; padding:0; }
+  body{
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--ff-body);
+    font-size: 16px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+  ::selection{ background: var(--blue); color:#fff; }
+
+  a{ color: inherit; text-decoration: none; }
+  img{ max-width: 100%; display: block; }
+  button{ font: inherit; cursor: pointer; }
+
+  /* ---------------- Backdrop (minimal Apple-style) ---------------- */
+  .backdrop{
+    position: fixed; inset: 0; z-index: -1; pointer-events: none;
+    background:
+      radial-gradient(900px 600px at 50% -10%, rgba(41,151,255,0.08), transparent 60%),
+      var(--bg);
+  }
+  .noise{ display: none; }
+
+  /* ---------------- Scroll progress ---------------- */
+  .progress{
+    position: fixed; top: 0; left: 0; right: 0; height: 2px;
+    background: var(--grad-primary); transform-origin: 0 0; transform: scaleX(0);
+    z-index: 100; transition: transform .08s linear;
+  }
+
+  /* ---------------- Nav with Dynamic Island ---------------- */
+  .nav-wrap{
+    position: fixed; top: 16px; left: 0; right: 0; z-index: 90;
+    display: flex; justify-content: center; pointer-events: none;
+  }
+  .nav{
+    pointer-events: auto;
+    display: flex; align-items: center; gap: 4px;
+    padding: 6px;
+    background: rgba(15,15,24,0.7);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid var(--border);
+    border-radius: var(--r-pill);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.04);
+  }
+  .nav ul{ display:flex; gap:2px; list-style:none; margin:0; padding:0; }
+  .nav a.nav-link{
+    display:inline-block; padding: 8px 14px; border-radius: var(--r-pill);
+    color: var(--muted); font-size: 13.5px; font-weight: 500;
+    transition: color .2s var(--ease), background .2s var(--ease);
+  }
+  .nav a.nav-link:hover{ color: var(--text); background: rgba(255,255,255,0.05); }
+  .nav .cta{
+    padding: 9px 16px; border-radius: var(--r-pill); font-size: 13.5px; font-weight: 600;
+    background: var(--text); color: var(--bg);
+    transition: transform .2s var(--ease), opacity .2s var(--ease);
+  }
+  .nav .cta:hover{ transform: translateY(-1px); }
+
+  /* Mobile nav */
+  @media (max-width: 760px){
+    .nav .nav-links{ display: none; }
+    .nav{ padding: 6px; }
+  }
+
+  /* ---------------- Layout ---------------- */
+  .container{ max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter); }
+  section{ position: relative; padding: clamp(56px, 8vw, 104px) 0; }
+  .section-head{ display: flex; align-items: baseline; gap: 14px; margin-bottom: clamp(28px, 4vw, 48px); flex-wrap: wrap; }
+  .section-num{
+    font-family: var(--ff-mono); font-size: 12px; color: var(--muted);
+    padding: 4px 10px; border: 1px solid var(--border); border-radius: var(--r-pill);
+  }
+  .section-title{
+    font-family: var(--ff-display);
+    font-size: clamp(32px, 5vw, 54px); font-weight: 600;
+    letter-spacing: -0.025em; margin: 0; line-height: 1.04;
+  }
+  .section-title em{
+    font-style: normal;
+    color: var(--blue);
+  }
+  .section-sub{
+    color: var(--muted); font-size: clamp(14.5px, 1.4vw, 16px);
+    max-width: 600px; margin-top: 10px;
+  }
+
+  /* ---------------- Hero ---------------- */
+  .hero{ padding: clamp(100px, 13vw, 144px) 0 clamp(40px, 6vw, 72px); overflow: hidden; }
+  .hero-grid{
+    display: grid;
+    grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.65fr);
+    gap: clamp(36px, 6vw, 96px);
+    align-items: center;
+  }
+  @media (max-width: 980px){
+    .hero-grid{ grid-template-columns: 1fr; gap: 48px; }
+  }
+
+  .hero-tag{
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 7px 14px 7px 7px; border-radius: var(--r-pill);
+    background: rgba(255,255,255,0.04); border: 1px solid var(--border);
+    font-size: 13px; color: var(--muted); margin-bottom: 22px;
+    backdrop-filter: blur(8px);
+  }
+  .hero-tag .swift-mark{
+    width: 22px; height: 22px; border-radius: 50%;
+    background: var(--blue);
+    display: inline-flex; align-items: center; justify-content: center;
+    font-family: var(--ff-display); font-weight: 600; font-size: 12px; color: #fff;
+  }
+  .hero h1{
+    font-family: var(--ff-display); font-weight: 600;
+    font-size: clamp(44px, 7.5vw, 96px); line-height: 0.96; letter-spacing: -0.04em;
+    margin: 0 0 22px;
+  }
+  .hero h1 .line{ display: block; }
+  .hero h1 .accent{
+    color: var(--blue);
+    font-style: normal; font-weight: 600;
+  }
+  .hero-lede{
+    color: var(--muted); font-size: clamp(15.5px, 1.5vw, 17.5px);
+    max-width: 560px; line-height: 1.55; margin: 0 0 28px;
+  }
+  .hero-lede strong{ color: var(--text); font-weight: 600; }
+  .hero-ctas{ display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn{
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 14px 22px; border-radius: var(--r-pill);
+    font-weight: 600; font-size: 14.5px;
+    transition: transform .25s var(--ease), background .25s var(--ease), border-color .25s var(--ease);
+    border: 1px solid transparent;
+  }
+  .btn-primary{
+    background: var(--text); color: var(--bg);
+  }
+  .btn-primary:hover{ transform: translateY(-2px); }
+  .btn-ghost{
+    background: transparent; color: var(--text); border-color: var(--border-2);
+  }
+  .btn-ghost:hover{ border-color: var(--text); transform: translateY(-2px); }
+  .btn .arr{ transition: transform .25s var(--ease); }
+  .btn:hover .arr{ transform: translateX(4px); }
+
+  /* Hero stats — right-rail card */
+  .hero-stats{
+    display: flex; flex-direction: column;
+    gap: 4px;
+    padding: 26px 28px;
+    border-radius: var(--r-lg);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+  }
+  .hero-stats .stat{
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .hero-stats .stat:last-child{ border-bottom: 0; }
+  .stat .stat-num{
+    font-family: var(--ff-display); font-weight: 600;
+    font-size: clamp(34px, 3.4vw, 46px); line-height: 1;
+    letter-spacing: -0.03em; margin-bottom: 8px;
+  }
+  .stat .stat-num em{
+    font-style: normal;
+    color: var(--blue);
+  }
+  .stat .stat-lbl{
+    font-size: 12.5px; color: var(--muted); font-family: var(--ff-mono); letter-spacing: 0.02em;
+  }
+  @media (max-width: 720px){
+    .hero-stats{
+      display: grid; grid-template-columns: repeat(2, 1fr);
+      padding: 20px; gap: 0;
+    }
+    .hero-stats .stat{
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .hero-stats .stat:nth-last-child(-n+2){ border-bottom: 0; }
+    .hero-stats .stat:nth-child(odd){ border-right: 1px solid var(--border); padding-right: 16px; }
+    .hero-stats .stat:nth-child(even){ padding-left: 16px; }
+  }
+
+  /* ---------------- Hero device ---------------- */
+  .device-wrap{
+    display: flex; justify-content: center; align-items: center;
+    perspective: 1400px;
+  }
+  .device{
+    width: min(320px, 90%);
+    aspect-ratio: 9 / 19;
+    background: linear-gradient(160deg, #1a1a26, #08080c);
+    border-radius: 48px;
+    padding: 12px;
+    position: relative;
+    box-shadow:
+      0 50px 100px -20px rgba(0,0,0,0.7),
+      0 30px 60px -30px rgba(91,107,255,0.4),
+      inset 0 0 0 1px rgba(255,255,255,0.08);
+    transform: rotateY(-8deg) rotateX(4deg);
+    transition: transform .8s var(--ease);
+  }
+  .device:hover{ transform: rotateY(0deg) rotateX(0deg); }
+  .device-screen{
+    background:
+      radial-gradient(120% 80% at 50% 0%, rgba(91,107,255,0.35), transparent 50%),
+      radial-gradient(120% 80% at 50% 100%, rgba(255,77,143,0.25), transparent 50%),
+      #0c0c14;
+    border-radius: 38px;
+    width: 100%; height: 100%;
+    overflow: hidden;
+    position: relative;
+    display: flex; flex-direction: column;
+  }
+  /* device dynamic island */
+  .device-island{
+    position: absolute; top: 12px; left: 50%; transform: translateX(-50%);
+    background: #000; border-radius: 999px;
+    height: 28px; width: 110px;
+    z-index: 5;
+  }
+  .device-status{
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 18px 28px 0; font-family: var(--ff-mono); font-size: 13px; font-weight: 600;
+    color: #fff;
+  }
+  .device-content{
+    padding: 56px 22px 22px; display: flex; flex-direction: column; gap: 14px;
+    flex: 1; overflow: hidden;
+  }
+  .device-app-title{
+    font-family: var(--ff-display); font-size: 24px; font-weight: 700; letter-spacing: -0.02em;
+    color: #fff;
+  }
+  .device-app-sub{ color: rgba(255,255,255,0.55); font-size: 12px; margin-top: -8px; }
+  .ticker{
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 14px;
+    padding: 12px 14px;
+    display: flex; justify-content: space-between; align-items: center;
+    color: #fff;
+  }
+  .ticker .sym{ font-weight: 700; font-size: 14px; }
+  .ticker .nm{ color: rgba(255,255,255,0.5); font-size: 11px; margin-top: 2px; }
+  .ticker .px{ font-family: var(--ff-mono); font-weight: 600; font-size: 13px; text-align: right; }
+  .ticker .ch{ font-family: var(--ff-mono); font-size: 11px; }
+  .up{ color: var(--green); }
+  .down{ color: #ff453a; }
+  .device-chart{
+    flex: 1; position: relative;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 14px; padding: 10px;
+    min-height: 80px;
+  }
+  .device-chart svg{ width:100%; height:100%; }
+
+
+  /* ---------------- About ---------------- */
+  .about-grid{ display:grid; grid-template-columns: 1.1fr 1fr; gap: clamp(40px, 6vw, 96px); align-items: start; }
+  @media (max-width: 900px){ .about-grid{ grid-template-columns: 1fr; } }
+  .about-body p{ font-size: clamp(16px, 1.4vw, 18px); color: var(--text); line-height: 1.65; margin: 0 0 20px; }
+  .about-body p.muted{ color: var(--muted); }
+  .about-body p strong{ color: var(--text); font-weight: 600; }
+  .pull-quote{
+    border-left: 2px solid var(--blue); padding-left: 22px; margin: 0;
+    font-family: var(--ff-display); font-size: clamp(20px, 2vw, 26px); font-weight: 400;
+    letter-spacing: -0.015em; line-height: 1.35; color: var(--text);
+  }
+
+  .quick-facts{ display: grid; gap: 14px; }
+  .fact{
+    display: flex; gap: 14px; padding: 18px 20px;
+    background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-md);
+    transition: border-color .3s var(--ease), transform .3s var(--ease);
+  }
+  .fact:hover{ border-color: var(--border-2); transform: translateY(-2px); }
+  .fact-ico{
+    width: 36px; height: 36px; border-radius: var(--r-sm); flex: none;
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(255,255,255,0.05); color: var(--text); font-size: 18px;
+    border: 1px solid var(--border);
+  }
+  .fact-label{ font-size: 11.5px; font-family: var(--ff-mono); color: var(--muted); letter-spacing: 0.04em; margin-bottom: 2px; text-transform: uppercase; }
+  .fact-value{ font-weight: 500; font-size: 15px; color: var(--text); }
+
+  /* ---------------- Projects ---------------- */
+  .projects-grid{
+    display: grid; grid-template-columns: repeat(12, 1fr); gap: 14px;
+  }
+  .project{
+    grid-column: span 12;
+    position: relative;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r-lg);
+    padding: clamp(22px, 3vw, 36px);
+    overflow: hidden;
+    transition: transform .4s var(--ease), border-color .4s var(--ease);
+    display: grid; grid-template-columns: 1.1fr 0.9fr; gap: clamp(18px, 3vw, 44px);
+    align-items: center;
+    min-height: 300px;
+  }
+  .project:hover{ border-color: var(--border-2); transform: translateY(-2px); }
+  .project.is-half{ grid-column: span 6; grid-template-columns: 1fr; min-height: 280px; }
+  @media (max-width: 980px){
+    .project, .project.is-half{ grid-column: span 12; grid-template-columns: 1fr; }
+  }
+  .project-glow{
+    position: absolute; pointer-events: none; inset: 0;
+    background: radial-gradient(600px 300px at var(--mx,50%) var(--my,30%), rgba(41,151,255,0.10), transparent 50%);
+    opacity: 0; transition: opacity .4s var(--ease);
+  }
+  .project:hover .project-glow{ opacity: 1; }
+
+  .project-meta{
+    display: flex; align-items: center; gap: 10px;
+    font-family: var(--ff-mono); font-size: 11.5px; color: var(--muted);
+    margin-bottom: 14px;
+  }
+  .project-meta .dot{ width:4px; height:4px; border-radius:50%; background: var(--muted); }
+  .project-meta .badge{
+    padding: 4px 10px; border-radius: var(--r-pill);
+    background: rgba(41,151,255,0.10); color: var(--blue);
+    border: 1px solid rgba(41,151,255,0.20); font-weight: 500;
+  }
+
+  .project h3{
+    font-family: var(--ff-display); font-size: clamp(22px, 2.2vw, 28px); font-weight: 600;
+    letter-spacing: -0.02em; line-height: 1.12; margin: 0 0 12px;
+  }
+  .project-desc{ color: var(--muted); font-size: 14.5px; line-height: 1.6; margin: 0 0 16px; }
+  .project-desc strong{ color: var(--text); font-weight: 600; }
+  .chips{ display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
+  .chip{
+    padding: 5px 11px; border-radius: var(--r-pill); font-family: var(--ff-mono);
+    font-size: 11.5px; color: var(--muted);
+    background: rgba(255,255,255,0.03); border: 1px solid var(--border);
+  }
+  .project-link{
+    display: inline-flex; align-items: center; gap: 8px;
+    color: var(--text); font-size: 14px; font-weight: 500;
+    transition: gap .25s var(--ease);
+  }
+  .project-link:hover{ gap: 12px; }
+  .project-link svg{ width: 14px; height: 14px; }
+
+  /* Project visuals */
+  .project-vis{
+    position: relative;
+    aspect-ratio: 1.1 / 1;
+    border-radius: var(--r-lg);
+    overflow: hidden;
+    background: linear-gradient(160deg, #14141d, #08080d);
+    border: 1px solid var(--border);
+  }
+
+  /* itrade visual */
+  .vis-itrade{
+    display: flex; flex-direction: column; padding: 22px;
+    background:
+      radial-gradient(80% 50% at 50% 0%, rgba(91,107,255,0.25), transparent 60%),
+      linear-gradient(160deg, #131321, #0a0a13);
+  }
+  .vis-itrade-island{
+    align-self: center; background: #000; border-radius: 999px;
+    padding: 6px 14px 6px 8px; display:flex; align-items:center; gap:10px;
+    font-family: var(--ff-mono); font-size: 11px; color: #fff;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  }
+  .vis-itrade-island .iv-dot{ width:6px; height:6px; border-radius:50%; background: var(--green); box-shadow: 0 0 8px var(--green); }
+  .vis-itrade-row{
+    display:flex; justify-content: space-between; padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .vis-itrade-row:last-of-type{ border-bottom: 0; }
+  .vis-itrade-row .l{ display:flex; flex-direction: column; }
+  .vis-itrade-row .sym{ font-family: var(--ff-display); font-weight: 600; font-size: 16px; color: #fff; }
+  .vis-itrade-row .nm{ color: rgba(255,255,255,0.45); font-size: 11px; }
+  .vis-itrade-row .r{ display:flex; flex-direction: column; align-items:flex-end; }
+  .vis-itrade-row .px{ font-family: var(--ff-mono); font-size: 13px; color: #fff; font-weight: 500; }
+  .vis-itrade-row .ch{ font-family: var(--ff-mono); font-size: 11px; }
+  .vis-itrade-spark{ margin-top: auto; }
+
+  /* MCP visual */
+  .vis-mcp{
+    background:
+      radial-gradient(60% 50% at 20% 0%, rgba(255,77,143,0.22), transparent 60%),
+      radial-gradient(60% 50% at 90% 90%, rgba(255,214,10,0.18), transparent 60%),
+      linear-gradient(160deg, #15101a, #0a0a13);
+    display:flex; flex-direction: column; padding: 22px; gap: 12px; justify-content: center;
+    font-family: var(--ff-mono); font-size: 11px;
+  }
+  .term{
+    background: rgba(0,0,0,0.45); border: 1px solid rgba(255,255,255,0.07); border-radius: 10px;
+    padding: 12px 14px; color: rgba(255,255,255,0.85); line-height: 1.7;
+  }
+  .term .prompt{ color: var(--pink); }
+  .term .ok{ color: var(--green); }
+  .term .info{ color: var(--cyan); }
+  .term .muted{ color: rgba(255,255,255,0.4); }
+
+  /* Chrome ext visual */
+  .vis-ext{
+    background:
+      radial-gradient(60% 50% at 80% 0%, rgba(100,210,255,0.18), transparent 60%),
+      linear-gradient(160deg, #0e151c, #08080d);
+    padding: 14px; display:flex; flex-direction: column;
+  }
+  .browser-bar{
+    display: flex; align-items: center; gap: 6px; padding-bottom: 10px;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+  }
+  .browser-dot{ width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,0.18); }
+  .browser-dot:nth-child(1){ background: #ff5f57; }
+  .browser-dot:nth-child(2){ background: #febc2e; }
+  .browser-dot:nth-child(3){ background: #28c840; }
+  .browser-url{
+    flex: 1; margin-left: 10px; padding: 5px 12px; border-radius: 999px;
+    background: rgba(255,255,255,0.05); font-family: var(--ff-mono); font-size: 10.5px;
+    color: rgba(255,255,255,0.55); border: 1px solid rgba(255,255,255,0.06);
+  }
+  .ext-panel{
+    margin-top: 14px; padding: 14px; border-radius: 12px;
+    background: rgba(91,107,255,0.08); border: 1px solid rgba(91,107,255,0.18);
+    font-family: var(--ff-mono); font-size: 11px; color: var(--text);
+  }
+  .ext-panel .hdr{ display:flex; align-items:center; justify-content: space-between; margin-bottom: 10px; }
+  .ext-panel .pill{
+    padding: 2px 8px; border-radius: 999px;
+    background: rgba(48,209,88,0.15); color: var(--green); font-size: 10px;
+  }
+  .ext-line{ color: rgba(255,255,255,0.7); margin: 4px 0; }
+  .ext-line .k{ color: var(--blue); }
+  .ext-line .v{ color: rgba(255,255,255,0.95); }
+
+  /* Widget visual */
+  .vis-widget{
+    background:
+      radial-gradient(70% 60% at 50% 0%, rgba(255,214,10,0.18), transparent 60%),
+      linear-gradient(160deg, #1a1410, #08080d);
+    padding: 22px; display:grid; grid-template-columns: 1fr 1fr; gap: 12px; align-content: center;
+  }
+  .ios-widget{
+    background: linear-gradient(160deg, #2a1f12, #1a1208);
+    border: 1px solid rgba(255,214,10,0.15);
+    border-radius: 18px; padding: 14px;
+    aspect-ratio: 1; display:flex; flex-direction:column; justify-content: space-between;
+    color: #fff;
+  }
+  .ios-widget.alt{
+    background: linear-gradient(160deg, #1a1f2a, #0a0d12);
+    border-color: rgba(91,107,255,0.18);
+  }
+  .ios-widget .w-hdr{ display:flex; justify-content: space-between; font-family: var(--ff-mono); font-size: 9.5px; color: rgba(255,255,255,0.5); }
+  .ios-widget .w-title{ font-family: var(--ff-display); font-weight: 600; font-size: 14px; line-height: 1.2; letter-spacing: -0.01em; }
+  .ios-widget .w-meta{ font-family: var(--ff-mono); font-size: 9.5px; color: rgba(255,255,255,0.5); }
+
+  /* Mobile-Boost visual */
+  .vis-food{
+    background:
+      radial-gradient(70% 60% at 50% 0%, rgba(48,209,88,0.20), transparent 60%),
+      linear-gradient(160deg, #0d1a12, #08080d);
+    padding: 22px; display:flex; flex-direction: column; gap: 10px;
+  }
+  .food-card{
+    background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 14px; padding: 12px; display: flex; align-items: center; gap: 12px;
+  }
+  .food-thumb{
+    width: 44px; height: 44px; border-radius: 10px; flex: none;
+    display: flex; align-items: center; justify-content: center; font-size: 22px;
+    background: linear-gradient(135deg, var(--green), var(--yellow));
+  }
+  .food-card .name{ font-weight: 600; font-size: 13px; color: #fff; }
+  .food-card .desc{ font-size: 10.5px; color: rgba(255,255,255,0.55); }
+  .food-card .px{ margin-left: auto; font-family: var(--ff-mono); font-size: 12px; color: #fff; }
+  .checkout{
+    margin-top: auto; padding: 12px 14px; border-radius: 12px;
+    background: var(--green); color: #06140a; text-align: center; font-weight: 700; font-size: 13px;
+    font-family: var(--ff-display);
+  }
+
+  /* CRM visual */
+  .vis-crm{
+    background:
+      radial-gradient(60% 50% at 0% 0%, rgba(91,107,255,0.18), transparent 60%),
+      linear-gradient(160deg, #0d1019, #08080d);
+    padding: 16px; display:flex; flex-direction: column; gap: 10px;
+  }
+  .gantt{
+    flex: 1; display: grid; grid-template-rows: repeat(4, 1fr); gap: 6px;
+    background: rgba(255,255,255,0.03); border-radius: 10px; padding: 10px;
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+  .gantt-row{ display: flex; align-items: center; gap: 8px; }
+  .gantt-label{ font-family: var(--ff-mono); font-size: 9.5px; color: rgba(255,255,255,0.5); width: 56px; flex: none; }
+  .gantt-bar{ height: 8px; border-radius: 4px; background: var(--grad-cool); flex: 1; }
+  .gantt-bar.b2{ width: 70%; background: var(--grad-hot); }
+  .gantt-bar.b3{ width: 55%; background: var(--grad-primary); }
+  .gantt-bar.b4{ width: 88%; background: linear-gradient(90deg, var(--green), var(--cyan)); }
+
+  /* HealthKit visual */
+  .vis-health{
+    background:
+      radial-gradient(70% 60% at 50% 0%, rgba(255,77,143,0.22), transparent 60%),
+      linear-gradient(160deg, #1a0e14, #08080d);
+    padding: 22px; display:flex; flex-direction: column; gap: 14px;
+  }
+  .hr-card{
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 16px; border-radius: 14px;
+    background: rgba(255,77,143,0.08); border: 1px solid rgba(255,77,143,0.18);
+  }
+  .hr-card .v{ font-family: var(--ff-display); font-weight: 600; font-size: 26px; color: #fff; letter-spacing: -0.02em; }
+  .hr-card .l{ font-family: var(--ff-mono); font-size: 11px; color: rgba(255,255,255,0.55); }
+  .heart{ width: 32px; height: 32px; color: var(--pink); animation: beat 1.4s ease-in-out infinite; }
+  @keyframes beat{ 0%,100%{transform:scale(1)} 50%{transform:scale(1.18)} }
+
+  /* DRIVE visual */
+  .vis-drive{
+    background:
+      radial-gradient(60% 50% at 90% 0%, rgba(100,210,255,0.20), transparent 60%),
+      linear-gradient(160deg, #0a141a, #08080d);
+    padding: 22px; display:flex; flex-direction: column; gap: 12px;
+  }
+  .drive-stat{
+    background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 12px; padding: 14px;
+  }
+  .drive-stat .l{ font-family: var(--ff-mono); font-size: 10px; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 0.04em; }
+  .drive-stat .v{ font-family: var(--ff-display); font-weight: 600; font-size: 22px; color: #fff; margin-top: 4px; }
+  .drive-stat .v small{ font-size: 13px; color: rgba(255,255,255,0.5); font-weight: 400; }
+
+  /* PromptZen visual */
+  .vis-promptzen{
+    background:
+      radial-gradient(60% 50% at 20% 0%, rgba(255,214,10,0.20), transparent 60%),
+      radial-gradient(50% 50% at 90% 100%, rgba(255,77,143,0.18), transparent 60%),
+      linear-gradient(160deg, #1a1610, #08080d);
+    padding: 16px; display:flex; align-items: stretch;
+  }
+  .pz-window{
+    width:100%; background: rgba(0,0,0,0.55); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 10px; overflow: hidden; display:flex; flex-direction: column;
+  }
+  .pz-titlebar{
+    display:flex; align-items:center; gap:6px; padding: 8px 10px;
+    background: rgba(255,255,255,0.04); border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .pz-traffic{ width:10px; height:10px; border-radius:50%; }
+  .pz-traffic.r{ background:#ff5f57; }
+  .pz-traffic.y{ background:#febc2e; }
+  .pz-traffic.g{ background:#28c840; }
+  .pz-title{ margin-left:10px; font-family: var(--ff-mono); font-size: 10.5px; color: rgba(255,255,255,0.55); }
+  .pz-body{ flex:1; display:grid; grid-template-columns: 110px 1fr; gap: 0; min-height: 0; }
+  .pz-sidebar{
+    border-right: 1px solid rgba(255,255,255,0.06);
+    padding: 10px 8px; display:flex; flex-direction: column; gap:6px;
+    font-family: var(--ff-mono); font-size: 10.5px;
+  }
+  .pz-prov{ color: rgba(255,255,255,0.55); padding: 3px 4px; border-radius: 4px; }
+  .pz-prov.on{ color: var(--green); }
+  .pz-prov.off{ color: #ff453a; }
+  .pz-prov.idle{ color: rgba(255,255,255,0.35); }
+  .pz-editor{ padding: 12px 14px; display:flex; flex-direction: column; gap: 4px; }
+  .pz-tag{ font-family: var(--ff-mono); font-size: 9px; color: var(--yellow); letter-spacing: 0.08em; }
+  .pz-line{ font-family: var(--ff-mono); font-size: 11px; color: rgba(255,255,255,0.88); line-height: 1.5; }
+  .pz-hl{ background: rgba(255,214,10,0.18); color: var(--yellow); padding: 0 4px; border-radius: 3px; }
+  .pz-tunnel{
+    margin-top: auto; display: flex; align-items: center; gap: 8px;
+    padding: 8px 10px; border-radius: 8px;
+    background: rgba(48,209,88,0.10); border: 1px solid rgba(48,209,88,0.22);
+    font-family: var(--ff-mono); font-size: 10.5px; color: rgba(255,255,255,0.85);
+  }
+  .pz-pulse{ width: 8px; height: 8px; border-radius: 50%; background: var(--green); box-shadow: 0 0 10px var(--green); animation: pulse 2s ease-in-out infinite; }
+  .pz-link{ color: var(--green); }
+
+  /* LaunchSim visual — macOS window mockup */
+  .vis-launchsim{
+    background:
+      radial-gradient(60% 60% at 20% 0%, rgba(77,166,255,0.22), transparent 60%),
+      radial-gradient(50% 60% at 100% 100%, rgba(0,98,224,0.20), transparent 60%),
+      linear-gradient(160deg, #0a1224, #08080d);
+    padding: 14px; display:flex; align-items: stretch;
+    aspect-ratio: 1.1 / 1;
+  }
+  .ls-window{
+    width:100%; background: rgba(8,12,22,0.85); border: 1px solid rgba(255,255,255,0.10);
+    border-radius: 10px; overflow: hidden; display:flex; flex-direction: column;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+  }
+  .ls-titlebar{
+    display:flex; align-items:center; gap:6px; padding: 8px 12px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+  }
+  .ls-brand{
+    margin-left: 10px; display:inline-flex; align-items:center; gap:8px;
+    font-family: var(--ff-display); font-size: 11.5px; color: rgba(255,255,255,0.85); font-weight: 600;
+  }
+  .ls-rec{
+    margin-left:auto; display:inline-flex; align-items:center; gap:6px;
+    font-family: var(--ff-mono); font-size: 10px; color: #ff453a;
+    padding: 2px 8px; border-radius: 999px; background: rgba(255,69,58,0.10); border: 1px solid rgba(255,69,58,0.22);
+  }
+  .ls-rec-dot{ width: 6px; height: 6px; border-radius:50%; background: #ff453a; box-shadow: 0 0 8px #ff453a; animation: pulse 1.6s ease-in-out infinite; }
+  .ls-body{ flex:1; display:grid; grid-template-columns: 130px 1fr; min-height: 0; }
+  .ls-sidebar{
+    border-right: 1px solid rgba(255,255,255,0.06);
+    padding: 10px 8px; display:flex; flex-direction:column; gap: 4px;
+    background: rgba(0,0,0,0.25);
+  }
+  .ls-sec{
+    font-family: var(--ff-mono); font-size: 9px; letter-spacing: 0.1em;
+    color: rgba(255,255,255,0.4); margin-top: 6px; padding: 0 6px;
+  }
+  .ls-item{
+    font-family: var(--ff-mono); font-size: 10.5px; color: rgba(255,255,255,0.75);
+    padding: 5px 8px; border-radius: 6px; cursor: default;
+  }
+  .ls-item.active{
+    background: rgba(77,166,255,0.18); color: #fff;
+    box-shadow: inset 0 0 0 1px rgba(77,166,255,0.30);
+  }
+  .ls-item.dim{ color: rgba(255,255,255,0.4); }
+  .ls-workspace{
+    margin-top: auto; padding: 10px 8px 6px; border-top: 1px solid rgba(255,255,255,0.06);
+    display: flex; flex-direction: column; gap: 6px;
+  }
+  .ls-ws-row{
+    display:flex; align-items:center; gap:8px;
+    font-family: var(--ff-mono); font-size: 10px; color: rgba(255,255,255,0.7);
+  }
+  .ls-ws-ico{
+    width: 18px; height: 18px; border-radius: 5px; display:flex; align-items:center; justify-content:center;
+    font-size: 10px; flex:none;
+  }
+  .ls-ws-ico.sim{ background: rgba(255,255,255,0.08); }
+  .ls-ws-ico.app{ background: linear-gradient(135deg, #4DA6FF, #0062E0); color:#fff; font-family: var(--ff-display); font-weight: 700; font-size: 10px; }
+  .ls-tiles{
+    padding: 10px; display:grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 8px;
+    min-height: 0;
+  }
+  .ls-tile{
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 8px; padding: 8px 10px;
+    display:flex; flex-direction:column; gap: 4px;
+    overflow: hidden;
+  }
+  .ls-tile-hdr{
+    display:flex; justify-content: space-between; align-items: center;
+    font-family: var(--ff-display); font-size: 10.5px; font-weight: 600;
+    color: rgba(255,255,255,0.85); margin-bottom: 2px;
+  }
+  .ls-pill{
+    font-family: var(--ff-mono); font-size: 9px; padding: 1px 6px; border-radius: 999px;
+    background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.6);
+  }
+  .ls-pill.ok{ background: rgba(48,209,88,0.14); color: var(--green); }
+  .ls-row{
+    display:flex; justify-content: space-between; gap:6px;
+    font-family: var(--ff-mono); font-size: 9.5px; line-height: 1.4;
+  }
+  .ls-row .k{ color: rgba(255,255,255,0.55); }
+  .ls-row .v{ color: #fff; }
+  .ls-row.net{ align-items:center; }
+  .ls-row.net .m{
+    font-size: 8px; padding: 1px 5px; border-radius: 3px; flex: none;
+  }
+  .ls-row.net .m.get{ background: rgba(48,209,88,0.18); color: var(--green); }
+  .ls-row.net .m.post{ background: rgba(77,166,255,0.18); color: #6cb8ff; }
+  .ls-row.net .u{ color: rgba(255,255,255,0.75); flex:1; overflow:hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .ls-row.net .s{ color: var(--green); }
+  .ls-row.net .s.err{ color: #ff453a; }
+  .ls-log{
+    font-family: var(--ff-mono); font-size: 9.5px; line-height: 1.45;
+    color: rgba(255,255,255,0.75);
+  }
+  .ls-log.info{ color: rgba(255,255,255,0.55); }
+  .ls-log.warn{ color: #ffd60a; }
+  .ls-log.ok{ color: var(--green); }
+  .ls-perm{
+    display:flex; justify-content: space-between; align-items: center;
+    font-family: var(--ff-mono); font-size: 9.5px; color: rgba(255,255,255,0.75);
+  }
+  .ls-perm .t{ font-size: 8.5px; padding: 1px 6px; border-radius: 999px; }
+  .ls-perm .t.on{ background: rgba(48,209,88,0.18); color: var(--green); }
+  .ls-perm .t.off{ background: rgba(255,69,58,0.18); color: #ff453a; }
+
+  /* News widget visual */
+  .vis-news{
+    background:
+      radial-gradient(60% 50% at 0% 0%, rgba(255,77,143,0.16), transparent 60%),
+      linear-gradient(160deg, #0d0c14, #08080d);
+    padding: 22px; display:flex; flex-direction: column; gap: 10px;
+  }
+  .news-tile{
+    padding: 12px 14px; border-radius: 12px;
+    background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07);
+  }
+  .news-tile .src{ font-family: var(--ff-mono); font-size: 10px; color: var(--pink); margin-bottom: 4px; }
+  .news-tile .hdl{ font-family: var(--ff-display); font-size: 13px; color: #fff; font-weight: 500; line-height: 1.3; }
+  .news-tile .time{ font-family: var(--ff-mono); font-size: 10px; color: rgba(255,255,255,0.4); margin-top: 4px; }
+
+  /* ---------------- About — embedded thesis ---------------- */
+  .about-thesis{
+    margin-top: clamp(40px, 5vw, 64px);
+    padding-top: clamp(28px, 4vw, 44px);
+    border-top: 1px solid var(--border);
+    scroll-margin-top: 80px;
+  }
+  .about-thesis-head{
+    margin-bottom: clamp(20px, 3vw, 32px);
+    max-width: 720px;
+  }
+  .about-thesis-eyebrow{
+    display: inline-block;
+    font-family: var(--ff-display);
+    font-size: clamp(22px, 2.4vw, 30px);
+    font-weight: 600; letter-spacing: -0.02em; line-height: 1.15;
+    color: var(--text);
+    margin-bottom: 12px;
+  }
+  .about-thesis-sub{
+    color: var(--muted); font-size: clamp(14.5px, 1.4vw, 16.5px);
+    line-height: 1.55; margin: 0;
+  }
+
+  /* ---------------- Thesis (AI-native engineering) ---------------- */
+  .thesis-grid{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+  }
+  @media (max-width: 980px){ .thesis-grid{ grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 640px){ .thesis-grid{ grid-template-columns: 1fr; } }
+
+  .thesis{
+    position: relative;
+    padding: 24px 22px 20px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r-lg);
+    transition: border-color .35s var(--ease), transform .35s var(--ease), background .35s var(--ease);
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .thesis::before{
+    content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+    background: radial-gradient(420px 280px at 0% 0%, rgba(91,107,255,0.10), transparent 60%);
+    opacity: 0; transition: opacity .4s var(--ease);
+  }
+  .thesis:hover{ border-color: var(--border-2); transform: translateY(-3px); }
+  .thesis:hover::before{ opacity: 1; }
+
+  /* All thesis cards share one neutral hover glow */
+
+  .thesis-num{
+    font-family: var(--ff-display);
+    font-size: 44px; font-weight: 600; line-height: 1; letter-spacing: -0.04em;
+    color: var(--blue);
+    margin-bottom: 12px;
+  }
+
+  .thesis-title{
+    font-family: var(--ff-display);
+    font-size: clamp(17px, 1.5vw, 20px); font-weight: 600;
+    letter-spacing: -0.018em; line-height: 1.18;
+    margin: 0 0 12px;
+    color: var(--text);
+  }
+  .thesis-body{
+    color: var(--muted);
+    font-size: 13.5px; line-height: 1.55; margin: 0 0 14px;
+  }
+  .thesis-body strong{ color: var(--text); font-weight: 500; }
+  .thesis-body code{
+    font-family: var(--ff-mono); font-size: 12.5px;
+    background: rgba(255,255,255,0.05); padding: 1px 6px; border-radius: 4px;
+    color: var(--text);
+  }
+  .thesis-tag{
+    margin-top: auto;
+    display: inline-block;
+    font-family: var(--ff-mono); font-size: 10.5px;
+    color: var(--dim);
+    padding: 5px 10px; border-radius: var(--r-pill);
+    background: rgba(255,255,255,0.03); border: 1px solid var(--border);
+    letter-spacing: 0.02em;
+  }
+
+  /* Closing CTA strip below the thesis grid */
+  .thesis-cta{
+    margin-top: clamp(24px, 3vw, 40px);
+    padding: 18px 22px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r-lg);
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 18px; flex-wrap: wrap;
+  }
+  .thesis-cta-eyebrow{
+    font-family: var(--ff-mono); font-size: 11px; color: var(--muted);
+    letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 6px;
+  }
+  .thesis-cta-line{
+    font-family: var(--ff-display);
+    font-size: clamp(17px, 1.8vw, 22px);
+    font-weight: 500; letter-spacing: -0.015em;
+    color: var(--text); line-height: 1.3;
+    max-width: 720px;
+  }
+
+  /* ---------------- Skills ---------------- */
+  .skills-grid{
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;
+  }
+  @media (max-width: 720px){ .skills-grid{ grid-template-columns: 1fr; } }
+  .skill-card{
+    padding: 20px 22px; border-radius: var(--r-lg);
+    background: var(--surface); border: 1px solid var(--border);
+    transition: border-color .3s var(--ease), transform .3s var(--ease);
+  }
+  .skill-card:hover{ border-color: var(--border-2); transform: translateY(-2px); }
+  .skill-card .cat{
+    display: flex; align-items: center; gap: 10px; margin-bottom: 12px;
+  }
+  .skill-card .cat .ic{
+    width: 32px; height: 32px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(255,255,255,0.05); color: var(--text);
+    border: 1px solid var(--border);
+  }
+  .skill-card .cat h4{
+    font-family: var(--ff-display); font-size: 17px; font-weight: 600; margin: 0; letter-spacing: -0.01em;
+  }
+  .skill-list{ display: flex; flex-wrap: wrap; gap: 6px; }
+  .skill-list .chip{ font-size: 12px; padding: 5px 11px; background: rgba(255,255,255,0.04); }
+
+  /* ---------------- Highlights ---------------- */
+  .highlights{ display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 36px; }
+  @media (max-width: 880px){ .highlights{ grid-template-columns: 1fr; } }
+  .hl{
+    padding: 22px; border-radius: var(--r-lg);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    transition: border-color .3s var(--ease), transform .3s var(--ease);
+  }
+  .hl:hover{ border-color: var(--border-2); transform: translateY(-2px); }
+  .hl.pink, .hl.yellow{ background: var(--surface); border-color: var(--border); }
+  .hl .hl-num{
+    font-family: var(--ff-display); font-weight: 600; font-size: 36px;
+    letter-spacing: -0.03em; line-height: 1; margin-bottom: 8px;
+    color: var(--blue);
+  }
+  .hl .hl-title{ font-family: var(--ff-display); font-weight: 600; font-size: 18px; margin-bottom: 8px; letter-spacing: -0.01em; }
+  .hl .hl-desc{ color: var(--muted); font-size: 14.5px; line-height: 1.55; }
+
+  /* ---------------- Footer / Contact ---------------- */
+  .contact{
+    text-align: center;
+    padding: clamp(64px, 10vw, 120px) 0 clamp(72px, 9vw, 110px);
+  }
+  .contact h2{
+    font-family: var(--ff-display); font-weight: 600;
+    font-size: clamp(40px, 6.5vw, 84px); letter-spacing: -0.035em; line-height: 0.98;
+    margin: 0 0 20px;
+  }
+  .contact h2 em{
+    font-style: normal; font-weight: 600;
+    color: var(--blue);
+  }
+  .contact p{ color: var(--muted); max-width: 560px; margin: 0 auto 28px; font-size: 16px; line-height: 1.55; }
+  .contact-links{
+    display: inline-flex; gap: 10px; flex-wrap: wrap; justify-content: center;
+  }
+  .contact-link{
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 14px 20px; border-radius: var(--r-pill);
+    border: 1px solid var(--border-2); color: var(--text);
+    font-weight: 500; font-size: 14.5px;
+    transition: background .25s var(--ease), border-color .25s var(--ease), transform .25s var(--ease);
+  }
+  .contact-link.primary{
+    background: var(--text); color: var(--bg); border-color: var(--text);
+  }
+  .contact-link:hover{ transform: translateY(-2px); border-color: var(--text); }
+  .contact-link.primary:hover{ background: transparent; color: var(--text); }
+
+  .footer{
+    margin-top: clamp(36px, 5vw, 64px);
+    border-top: 1px solid var(--border);
+    padding: 22px 0 26px;
+    color: var(--dim); font-size: 12.5px;
+    display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap;
+    font-family: var(--ff-mono);
+  }
+  .footer a{ color: var(--muted); }
+  .footer a:hover{ color: var(--text); }
+
+  /* ---------------- Reveal animations ---------------- */
+  .reveal{ opacity: 0; transform: translateY(24px); transition: opacity .7s var(--ease), transform .7s var(--ease); }
+  .reveal.in{ opacity: 1; transform: translateY(0); }
+  .reveal[data-delay="1"]{ transition-delay: .08s; }
+  .reveal[data-delay="2"]{ transition-delay: .16s; }
+  .reveal[data-delay="3"]{ transition-delay: .24s; }
+  .reveal[data-delay="4"]{ transition-delay: .32s; }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation: none !important; transition: none !important; }
+    .reveal{ opacity: 1; transform: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="backdrop" aria-hidden="true"></div>
+<div class="noise" aria-hidden="true"></div>
+<div class="progress" id="progress" aria-hidden="true"></div>
+
+<!-- Nav -->
+<div class="nav-wrap">
+  <nav class="nav" aria-label="Primary">
+    <ul class="nav-links">
+      <li><a class="nav-link" href="#about">About</a></li>
+      <li><a class="nav-link" href="#work">Work</a></li>
+      <li><a class="nav-link" href="#skills">Skills</a></li>
+    </ul>
+    <a class="cta" href="#contact">Get in touch →</a>
+  </nav>
+</div>
+
+<a id="top"></a>
+
+<!-- ============== HERO ============== -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div>
+        <span class="hero-tag reveal">
+          <span class="swift-mark">S</span>
+          Senior Native Engineer · iOS · macOS · watchOS · tvOS · visionOS
+        </span>
+        <h1 class="reveal" data-delay="1">
+          <span class="line">Native Apple,</span>
+          <span class="line">built with</span>
+          <span class="line accent">craft &amp; AI.</span>
+        </h1>
+        <p class="hero-lede reveal" data-delay="2">
+          I'm <strong>Venkata Nandamuri</strong> — a Senior Native engineer based in <strong>Millbrook, Ontario</strong>, with <strong>11+ years</strong> shipping consumer-scale apps in Swift &amp; SwiftUI across <strong>all six Apple platforms</strong> — iOS, iPadOS, macOS, tvOS, watchOS, and visionOS. I lead Objective-C → Swift and UIKit → SwiftUI migrations, ship premium surfaces like <strong>Live Activities</strong> and <strong>Dynamic Island</strong>, build native macOS dev tools, and author the <strong>AI-native tooling</strong> my team uses every day.
+        </p>
+        <div class="hero-ctas reveal" data-delay="3">
+          <a class="btn btn-primary" href="#work">
+            See selected work
+            <span class="arr">→</span>
+          </a>
+          <a class="btn btn-ghost" href="#contact">
+            Get in touch
+          </a>
+        </div>
+      </div>
+
+      <aside class="hero-stats reveal" data-delay="4" aria-label="Career stats">
+        <div class="stat">
+          <div class="stat-num"><em>11+</em></div>
+          <div class="stat-lbl">years building native Apple</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">7</div>
+          <div class="stat-lbl">companies shipped</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">6</div>
+          <div class="stat-lbl">Apple platforms</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num"><em>10M+</em></div>
+          <div class="stat-lbl">Canadians use my apps</div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ============== ABOUT ============== -->
+<section id="about">
+  <div class="container">
+    <div class="section-head">
+      <span class="section-num reveal">01 / About</span>
+      <h2 class="section-title reveal" data-delay="1">A senior engineer who <em>still loves shipping.</em></h2>
+    </div>
+
+    <div class="about-grid">
+      <div class="about-body reveal">
+        <p>
+          I've spent the last decade shipping native Apple apps with Canada's largest product teams — <strong>Scotiabank</strong>, <strong>Rogers</strong>, <strong>RBC</strong>, and earlier-stage shops. The throughline: <strong>premium native UX across every Apple platform</strong>, ruthless attention to architecture, and a deep respect for Apple's HIG. Not just iOS — I build for <strong>iOS, iPadOS, macOS, tvOS, watchOS, and visionOS</strong>, and my personal projects ship as native macOS apps with the same craft.
+        </p>
+        <p class="muted">
+          I'm an <strong>AI-native builder</strong>. I author custom Claude skills my team uses daily — Figma MCP integration, JIRA / BitBucket / SPM automation, AI-driven PR review — plus a Chrome extension that pipes Confluence and JIRA context straight into AI models for PMs and engineers. Tools first, opinions second.
+        </p>
+        <p class="pull-quote">
+          "I look for engineers who treat code as craft and AI as leverage — not a replacement for judgment."
+        </p>
+      </div>
+
+      <div class="quick-facts reveal" data-delay="1">
+        <div class="fact">
+          <div class="fact-ico">📍</div>
+          <div>
+            <div class="fact-label">Based in</div>
+            <div class="fact-value">Millbrook, Ontario · 🇨🇦</div>
+          </div>
+        </div>
+        <div class="fact">
+          <div class="fact-ico">💼</div>
+          <div>
+            <div class="fact-label">Currently</div>
+            <div class="fact-value">Senior iOS Developer @ Scotiabank · iTrade + Scotiabank Mobile</div>
+          </div>
+        </div>
+        <div class="fact">
+          <div class="fact-ico">🛠</div>
+          <div>
+            <div class="fact-label">Stack</div>
+            <div class="fact-value">Swift · SwiftUI · Combine · Concurrency · 6 Apple platforms</div>
+          </div>
+        </div>
+        <div class="fact">
+          <div class="fact-ico">🤖</div>
+          <div>
+            <div class="fact-label">AI workflow</div>
+            <div class="fact-value">Claude Code · Copilot · MCP · daily</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="thesis" class="about-thesis">
+      <div class="about-thesis-head reveal">
+        <span class="about-thesis-eyebrow">How I build in the AI era</span>
+        <p class="about-thesis-sub">Generic chat windows won't ship apps; custom tooling, context engineering, and native craft will. Six principles I've sharpened across 11+ years of native Apple work — and rewired around AI in the last two.</p>
+      </div>
+
+      <div class="thesis-grid">
+        <article class="thesis reveal" data-tone="blue">
+          <div class="thesis-num">01</div>
+          <h3 class="thesis-title">AI is leverage,<br/>not a replacement.</h3>
+          <p class="thesis-body">
+            Claude Code and Copilot run end-to-end through my dev cycle — but <strong>architectural judgment, HIG fidelity, and concurrency safety stay human</strong>. I mentor pods on when to accept AI output and when to course-correct. The senior engineer's job didn't go away; it changed shape.
+          </p>
+          <div class="thesis-tag">Daily practice · Scotiabank pod</div>
+        </article>
+
+        <article class="thesis reveal" data-delay="1" data-tone="pink">
+          <div class="thesis-num">02</div>
+          <h3 class="thesis-title">Custom skills beat<br/>generic prompts.</h3>
+          <p class="thesis-body">
+            I author team-wide <strong>Claude skills</strong> that connect to Figma (MCP), JIRA, BitBucket, and Swift Package Manager — so the model sees the same shape of work my team does. Generic chat windows don't scale; bespoke tooling does. The 10× moment comes from <em>building</em> for AI, not just prompting it.
+          </p>
+          <div class="thesis-tag">Shipped · MCP integrations</div>
+        </article>
+
+        <article class="thesis reveal" data-delay="2" data-tone="yellow">
+          <div class="thesis-num">03</div>
+          <h3 class="thesis-title">Context engineering<br/>&gt; prompt engineering.</h3>
+          <p class="thesis-body">
+            The bottleneck in 2026 isn't writing prompts — it's piping the <em>right</em> context to the model. My Chrome extension compresses Confluence specs from <strong>14k tokens to 2.1k</strong> and feeds the model what's load-bearing. The skill is knowing what to leave out.
+          </p>
+          <div class="thesis-tag">Shipped · Confluence + JIRA → AI</div>
+        </article>
+
+        <article class="thesis reveal" data-tone="green">
+          <div class="thesis-num">04</div>
+          <h3 class="thesis-title">Native craft compounds<br/>with AI velocity.</h3>
+          <p class="thesis-body">
+            SwiftUI, Combine, Swift Concurrency, <code>@Observable</code>, Apple HIG — none of this goes away when AI writes the code. It's <strong>what makes AI output safe to ship</strong>: easier to review, harder to break in concurrency, and aligned with the platform users already trust. Craft is the moat.
+          </p>
+          <div class="thesis-tag">Apple HIG · 11+ years</div>
+        </article>
+
+        <article class="thesis reveal" data-delay="1" data-tone="cyan">
+          <div class="thesis-num">05</div>
+          <h3 class="thesis-title">Test the output.<br/>Don't trust it.</h3>
+          <p class="thesis-body">
+            TDD, XCTest, AI-driven PR review against a real CI gate. Anything AI generates earns the same scrutiny a junior PR would — usually more, because the failure modes are different (plausibly-correct compile errors, silent concurrency bugs, hallucinated APIs). <strong>Trust nothing the test suite hasn't seen.</strong>
+          </p>
+          <div class="thesis-tag">Quality bar · TDD · CI gates</div>
+        </article>
+
+        <article class="thesis reveal" data-delay="2" data-tone="indigo">
+          <div class="thesis-num">06</div>
+          <h3 class="thesis-title">The future is composable,<br/>multi-platform, on-device.</h3>
+          <p class="thesis-body">
+            visionOS, App Intents, Dynamic Island, on-device foundation models, Live Activities. The job stops being "iOS" — it's <strong>native experiences across every Apple surface</strong>, AI woven through each one, increasingly running on the user's silicon. That's where my work lives, and where the next 5 years of Apple-platforms hiring will live too.
+          </p>
+          <div class="thesis-tag">Forward bet · all six platforms</div>
+        </article>
+      </div>
+
+      <div class="thesis-cta reveal">
+        <div>
+          <div class="thesis-cta-eyebrow">If you're hiring for this</div>
+          <div class="thesis-cta-line">I'm a senior partner who builds the tooling, ships the surface, and mentors the pod.</div>
+        </div>
+        <a class="btn btn-primary" href="#contact">Let's talk <span class="arr">→</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== WORK ============== -->
+<section id="work">
+  <div class="container">
+    <div class="section-head">
+      <span class="section-num reveal">02 / Selected work</span>
+      <h2 class="section-title reveal" data-delay="1">Things I've <em>shipped &amp; built.</em></h2>
+      <p class="section-sub reveal" data-delay="2">A cross-section of apps and tools — production iOS for millions of users, personal AI-native dev tooling, and the occasional hackathon win.</p>
+    </div>
+
+    <div class="projects-grid">
+
+      <!-- Project: iTrade -->
+      <article class="project" data-tone="blue">
+        <span class="project-glow"></span>
+        <div>
+          <div class="project-meta">
+            <span class="badge">Featured · Production</span>
+            <span class="dot"></span>
+            <span>2021 — Present</span>
+            <span class="dot"></span>
+            <span>Scotiabank</span>
+          </div>
+          <h3>iTrade &amp; Scotiabank Mobile — banking + trading on iOS</h3>
+          <p class="project-desc">
+            Lead iOS developer and release captain on Scotiabank's iOS portfolio — both <strong>iTrade</strong> (the self-directed trading and money-movement platform, released 2022) and <strong>Scotiabank Mobile</strong> (the flagship consumer banking app, <strong>4.3M+ active mobile users in Canada</strong>). I ship <strong>Live Activities (ActivityKit)</strong> and <strong>Dynamic Island</strong> surfaces that deliver real-time trade status as ambient, glanceable experiences — plus a library of reusable <strong>SwiftUI / Combine</strong> components that replaced legacy UIKit views across both apps and unblocked cross-team feature delivery. I own release management via App Store Connect / TestFlight and coordinate pen-testing with Blackduck, Fortify, and NowSecure.
+          </p>
+          <div class="chips">
+            <span class="chip">SwiftUI</span>
+            <span class="chip">Combine</span>
+            <span class="chip">ActivityKit</span>
+            <span class="chip">Dynamic Island</span>
+            <span class="chip">Swift Concurrency</span>
+            <span class="chip">App Store Connect</span>
+            <span class="chip">Blackduck · Fortify</span>
+          </div>
+          <a class="project-link" href="https://apps.apple.com/ca/app/scotia-itrade/id1538377041" target="_blank" rel="noopener">
+            View on the App Store
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M9 7h8v8"/></svg>
+          </a>
+        </div>
+        <div class="project-vis vis-itrade">
+          <div class="vis-itrade-island">
+            <span class="iv-dot"></span>
+            <span>AAPL · BUY 100 · filled</span>
+          </div>
+          <div class="vis-itrade-row">
+            <div class="l"><span class="sym">AAPL</span><span class="nm">Apple Inc.</span></div>
+            <div class="r"><span class="px">$192.45</span><span class="ch up">+2.18%</span></div>
+          </div>
+          <div class="vis-itrade-row">
+            <div class="l"><span class="sym">TSLA</span><span class="nm">Tesla</span></div>
+            <div class="r"><span class="px">$248.30</span><span class="ch up">+0.74%</span></div>
+          </div>
+          <div class="vis-itrade-row">
+            <div class="l"><span class="sym">BNS</span><span class="nm">Scotiabank</span></div>
+            <div class="r"><span class="px">$66.81</span><span class="ch down">-0.32%</span></div>
+          </div>
+          <svg class="vis-itrade-spark" viewBox="0 0 280 50" preserveAspectRatio="none" style="height:50px">
+            <path d="M0,32 L20,28 L40,36 L60,22 L80,28 L100,18 L120,24 L140,12 L160,18 L180,8 L200,14 L220,6 L240,10 L260,4 L280,8" fill="none" stroke="#5b6bff" stroke-width="2" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </article>
+
+      <!-- Project: AI MCP tooling -->
+      <article class="project" data-tone="pink">
+        <span class="project-glow"></span>
+        <div class="project-vis vis-mcp">
+          <div class="term">
+            <div><span class="prompt">$</span> claude run figma-mcp <span class="muted">--ticket ITR-2841</span></div>
+            <div class="muted">→ fetching design from Figma…</div>
+            <div class="info">✓ extracted 14 components, 6 states</div>
+            <div class="info">✓ matched to design-system tokens</div>
+            <div><span class="prompt">$</span> claude run jira-mcp <span class="muted">--branch &amp; pr</span></div>
+            <div class="ok">✓ branch feat/ITR-2841 created</div>
+            <div class="ok">✓ PR drafted · scoped to acceptance criteria</div>
+            <div><span class="prompt">$</span> claude run spm-switch <span class="muted">core-ui local</span></div>
+            <div class="ok">✓ Package.swift rewritten · pinned to ../core-ui</div>
+          </div>
+          <div class="term">
+            <div class="info"># Custom Claude skill manifest</div>
+            <div><span class="muted">skill:</span> <span class="ok">"ios-pr-review"</span></div>
+            <div><span class="muted">model:</span> <span class="ok">claude-sonnet-4-6</span></div>
+            <div><span class="muted">mcp:</span> [figma, jira, bitbucket, spm]</div>
+          </div>
+        </div>
+        <div>
+          <div class="project-meta">
+            <span class="badge">Personal · Internal tooling</span>
+            <span class="dot"></span>
+            <span>2024 — Present</span>
+          </div>
+          <h3>AI-native dev tooling for iOS teams</h3>
+          <p class="project-desc">
+            A suite of <strong>custom Claude skills</strong> and MCP integrations my team uses daily across the iOS dev cycle. Connects Claude to <strong>Figma (Figma MCP)</strong>, <strong>JIRA</strong>, <strong>BitBucket</strong>, and <strong>Swift Package Manager</strong> — automating ticket comprehension, branch / PR creation, PR review, and on-demand local ↔ remote SPM dependency switching. Designed with explicit context-window management and prompt engineering so engineers spend time on architectural judgment, not boilerplate.
+          </p>
+          <div class="chips">
+            <span class="chip">Claude Code</span>
+            <span class="chip">MCP / Function calling</span>
+            <span class="chip">Figma MCP</span>
+            <span class="chip">JIRA · BitBucket</span>
+            <span class="chip">Prompt engineering</span>
+            <span class="chip">Swift Package Manager</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Project: PromptZen -->
+      <article class="project" data-tone="yellow">
+        <span class="project-glow"></span>
+        <div>
+          <div class="project-meta">
+            <span class="badge">Personal · macOS · Open-source</span>
+            <span class="dot"></span>
+            <span>2024 — Present</span>
+            <span class="dot"></span>
+            <span>Swift Package</span>
+          </div>
+          <h3>PromptZen — a prompt studio &amp; LLM playground for macOS</h3>
+          <p class="project-desc">
+            A native <strong>macOS app</strong> (SwiftUI, Swift Package) for writing, organizing, and running prompts against <strong>14+ LLM providers</strong> with your own API keys — Ollama, OpenRouter, Gemini, Groq, Mistral, Hugging Face, Cerebras, Cohere, GitHub Models, Cloudflare Workers AI, NVIDIA NIM, and more. Ships with a <strong>built-in web tunnel</strong>: an embedded HTTP server (FlyingFox) plus optional ngrok bridge, so I can chat with my Mac's models from my phone or any browser. A companion <strong>VS Code extension</strong> brings the prompt library into the editor. Built with <strong>phased failover</strong> across model rotations, per-provider health indicators, and a Bearer-token-secured POST <code>/chat</code> API for custom clients.
+          </p>
+          <div class="chips">
+            <span class="chip">SwiftUI · macOS</span>
+            <span class="chip">Swift Package</span>
+            <span class="chip">FlyingFox HTTP</span>
+            <span class="chip">ngrok</span>
+            <span class="chip">Anthropic SDK</span>
+            <span class="chip">14+ LLM providers</span>
+            <span class="chip">VS Code extension</span>
+            <span class="chip">AppStorage · UserDefaults</span>
+          </div>
+          <a class="project-link" href="https://github.com/Venkata-Maniteja" target="_blank" rel="noopener">
+            Source &amp; docs on GitHub
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M9 7h8v8"/></svg>
+          </a>
+        </div>
+        <div class="project-vis vis-promptzen">
+          <div class="pz-window">
+            <div class="pz-titlebar">
+              <span class="pz-traffic r"></span><span class="pz-traffic y"></span><span class="pz-traffic g"></span>
+              <span class="pz-title">PromptZen · Playground</span>
+            </div>
+            <div class="pz-body">
+              <div class="pz-sidebar">
+                <div class="pz-prov on">● Ollama</div>
+                <div class="pz-prov on">● OpenRouter</div>
+                <div class="pz-prov on">● Gemini</div>
+                <div class="pz-prov off">● Groq</div>
+                <div class="pz-prov on">● Mistral</div>
+                <div class="pz-prov on">● Cerebras</div>
+                <div class="pz-prov idle">○ Cohere</div>
+                <div class="pz-prov idle">○ HF</div>
+              </div>
+              <div class="pz-editor">
+                <div class="pz-tag">SYSTEM</div>
+                <div class="pz-line">You are a senior iOS reviewer.</div>
+                <div class="pz-tag" style="margin-top:8px;">USER</div>
+                <div class="pz-line">Refactor this SwiftUI view to use <span class="pz-hl">@Observable</span>…</div>
+                <div class="pz-tunnel">
+                  <span class="pz-pulse"></span>
+                  <span>Web tunnel · <span class="pz-link">https://promptzen.ngrok.app</span></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Project: LaunchSim -->
+      <article class="project" data-tone="blue">
+        <span class="project-glow"></span>
+        <div class="project-vis vis-launchsim">
+          <div class="ls-window">
+            <div class="ls-titlebar">
+              <span class="pz-traffic r"></span><span class="pz-traffic y"></span><span class="pz-traffic g"></span>
+              <span class="ls-brand">
+                <svg width="14" height="14" viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="url(#lsg)"/><defs><linearGradient id="lsg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#4DA6FF"/><stop offset="100%" stop-color="#0062E0"/></linearGradient></defs><rect x="6" y="5" width="6" height="14" rx="1.4" fill="#fff" opacity=".95"/><rect x="13" y="9" width="5" height="10" rx="1.2" fill="#fff" opacity=".7"/></svg>
+                LaunchSim · Auth Debugging
+              </span>
+              <span class="ls-rec"><span class="ls-rec-dot"></span> REC 02:18</span>
+            </div>
+            <div class="ls-body">
+              <div class="ls-sidebar">
+                <div class="ls-sec">RECENTS</div>
+                <div class="ls-item active">▣ Auth Debugging</div>
+                <div class="ls-item">▣ Push Testing</div>
+                <div class="ls-item">▣ UI Polish</div>
+                <div class="ls-sec">TEMPLATES</div>
+                <div class="ls-item dim">＋ Data Debugging</div>
+                <div class="ls-item dim">＋ New session…</div>
+                <div class="ls-workspace">
+                  <div class="ls-ws-row"><span class="ls-ws-ico sim">📱</span><span>iPhone 16 Pro · 17.4</span></div>
+                  <div class="ls-ws-row"><span class="ls-ws-ico app">A</span><span>iTrade.app · 4.2.0</span></div>
+                </div>
+              </div>
+              <div class="ls-tiles">
+                <div class="ls-tile">
+                  <div class="ls-tile-hdr"><span>UserDefaults</span><span class="ls-pill">14</span></div>
+                  <div class="ls-row"><span class="k">session.user</span><span class="v">"seed-user"</span></div>
+                  <div class="ls-row"><span class="k">feature.flags</span><span class="v">true</span></div>
+                  <div class="ls-row"><span class="k">last.sync</span><span class="v">22:13Z</span></div>
+                </div>
+                <div class="ls-tile">
+                  <div class="ls-tile-hdr"><span>Network</span><span class="ls-pill ok">6 / 10s</span></div>
+                  <div class="ls-row net"><span class="m get">GET</span><span class="u">/v1/accounts</span><span class="s">200</span></div>
+                  <div class="ls-row net"><span class="m post">POST</span><span class="u">/v1/orders</span><span class="s">201</span></div>
+                  <div class="ls-row net"><span class="m get">GET</span><span class="u">/v1/quotes/AAPL</span><span class="s err">401</span></div>
+                </div>
+                <div class="ls-tile">
+                  <div class="ls-tile-hdr"><span>Logs</span><span class="ls-pill">live</span></div>
+                  <div class="ls-log info">[App] launched · cold start 612 ms</div>
+                  <div class="ls-log warn">[Auth] refresh-token expired · retry</div>
+                  <div class="ls-log ok">[Auth] refresh OK · session restored</div>
+                </div>
+                <div class="ls-tile">
+                  <div class="ls-tile-hdr"><span>Permissions</span><span class="ls-pill">5</span></div>
+                  <div class="ls-perm"><span>Camera</span><span class="t on">Granted</span></div>
+                  <div class="ls-perm"><span>Push</span><span class="t off">Denied</span></div>
+                  <div class="ls-perm"><span>Location</span><span class="t on">While in use</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="project-meta">
+            <span class="badge">Personal · Flagship · macOS · Shipped</span>
+            <span class="dot"></span>
+            <span>2025 — Present</span>
+            <span class="dot"></span>
+            <span>Sparkle auto-update</span>
+          </div>
+          <h3>LaunchSim — “The Simulator IDE.”</h3>
+          <p class="project-desc">
+            A native <strong>macOS app</strong> that turns iOS / tvOS / watchOS / visionOS simulators (and physical devices) into a <strong>composable debug workbench</strong>. Pick a simulator + app, tile up to six tools, and reach for the things Xcode hides: <strong>UserDefaults</strong>, <strong>keychain</strong>, <strong>sandbox</strong>, <strong>network capture</strong>, <strong>permissions</strong>, <strong>logs</strong>, <strong>location</strong>, <strong>biometrics</strong>, <strong>notifications</strong>, <strong>accessibility</strong>, and a dozen more — <strong>17 feature modules</strong> in total. Ships with built-in templates (Auth Debugging, Push Testing, UI Polish, Data Debugging) and <strong>session recording</strong> via <code>simctl io recordVideo</code> with auto-export.
+          </p>
+          <p class="project-desc" style="margin-top:-6px;">
+            Engineered as a 4-layer <strong>SPM monorepo</strong> — Core / UI / Workbench / 17 Feature packages — with a strict no-cross-feature-import rule. ViewModels are <strong>@Observable @MainActor</strong> (no Combine). Physical-device support is wired via <strong>devicectl</strong> JSON + <strong>IOKit USB hot-plug</strong> notifications. The companion <strong>LaunchSimSDK</strong> swizzles <code>URLSession</code> and registers a <code>URLProtocol</code> to capture network traffic from any embedding app. Shipped as a signed <strong>.dmg</strong> with a <strong>Sparkle appcast</strong> and a beta gate.
+          </p>
+          <div class="chips">
+            <span class="chip">SwiftUI · macOS 14+</span>
+            <span class="chip">@Observable · @MainActor</span>
+            <span class="chip">Swift Concurrency</span>
+            <span class="chip">SPM monorepo · 17 modules</span>
+            <span class="chip">simctl · devicectl</span>
+            <span class="chip">IOKit (USB)</span>
+            <span class="chip">AVKit · h264 recording</span>
+            <span class="chip">URLSession swizzling</span>
+            <span class="chip">URLProtocol</span>
+            <span class="chip">Bonjour discovery</span>
+            <span class="chip">Sparkle</span>
+          </div>
+          <a class="project-link" href="https://github.com/Venkata-Maniteja" target="_blank" rel="noopener">
+            Source &amp; docs
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M9 7h8v8"/></svg>
+          </a>
+        </div>
+      </article>
+
+      <!-- Project: Chrome extension -->
+      <article class="project" data-tone="cyan">
+        <span class="project-glow"></span>
+        <div>
+          <div class="project-meta">
+            <span class="badge">Personal · Chrome extension</span>
+            <span class="dot"></span>
+            <span>2024 — Present</span>
+          </div>
+          <h3>Context-bridge — Confluence &amp; JIRA → AI</h3>
+          <p class="project-desc">
+            A Chrome extension that extracts <strong>Confluence pages</strong> and <strong>JIRA ticket details</strong> and feeds <strong>structured, prompt-engineered context</strong> to AI models. Gives PMs and engineers <em>context-window-aware</em> AI assistance for spec-to-task workflows — turning long-form specs and ticket trees into clean, actionable summaries, implementation plans, and test scaffolding.
+          </p>
+          <div class="chips">
+            <span class="chip">JavaScript</span>
+            <span class="chip">Chrome Manifest V3</span>
+            <span class="chip">Confluence · JIRA APIs</span>
+            <span class="chip">Prompt engineering</span>
+            <span class="chip">Context-window management</span>
+          </div>
+        </div>
+        <div class="project-vis vis-ext">
+          <div class="browser-bar">
+            <span class="browser-dot"></span><span class="browser-dot"></span><span class="browser-dot"></span>
+            <span class="browser-url">scotiabank.atlassian.net/browse/ITR-2841</span>
+          </div>
+          <div class="ext-panel">
+            <div class="hdr">
+              <span>Context-bridge</span>
+              <span class="pill">● ready</span>
+            </div>
+            <div class="ext-line"><span class="k">ticket:</span> <span class="v">ITR-2841 · Add Live Activity to order flow</span></div>
+            <div class="ext-line"><span class="k">parent:</span> <span class="v">EPIC iTrade · Trade UX 2025</span></div>
+            <div class="ext-line"><span class="k">confluence:</span> <span class="v">3 specs · 14k tokens (compressed → 2.1k)</span></div>
+            <div class="ext-line"><span class="k">acceptance:</span> <span class="v">8 criteria · extracted</span></div>
+            <div class="ext-line" style="margin-top:10px; color: var(--green);">→ context piped to Claude · ready to plan</div>
+          </div>
+        </div>
+      </article>
+
+      <!-- HALF-WIDTH ROW -->
+
+      <!-- Project: CityNews widgets -->
+      <article class="project is-half" data-tone="pink">
+        <span class="project-glow"></span>
+        <div>
+          <div class="project-meta">
+            <span class="badge">Production · Rogers</span>
+            <span class="dot"></span>
+            <span>2020 — 2021</span>
+          </div>
+          <h3>News &amp; radio — iOS 14 home-screen widgets</h3>
+          <p class="project-desc">
+            Designed and shipped <strong>iOS 14 home-screen widgets</strong> and special-events flows for <strong>680, 660, 570 News</strong> and <strong>CityNews Toronto</strong>. Used behavioral data and in-app feedback to prioritize features that boosted engagement and retention. Also drove <strong>Chromecast / AirPlay</strong> integrations across CityTV / FX streaming apps.
+          </p>
+          <div class="chips">
+            <span class="chip">WidgetKit</span>
+            <span class="chip">SwiftUI</span>
+            <span class="chip">UIKit → SwiftUI</span>
+            <span class="chip">Chromecast · AirPlay</span>
+            <span class="chip">Brightcove SDK</span>
+          </div>
+          <div class="project-vis vis-news" style="margin-top: 18px; aspect-ratio: auto;">
+            <div class="news-tile">
+              <div class="src">CITYNEWS TORONTO · WIDGET</div>
+              <div class="hdl">TTC Line 1 partial service · streetcars rerouted at College</div>
+              <div class="time">5 min ago · Live</div>
+            </div>
+            <div class="news-tile">
+              <div class="src">680 NEWS · BREAKING</div>
+              <div class="hdl">Bank of Canada holds rates steady at 4.50%</div>
+              <div class="time">just now</div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Project: Mobile-Boost -->
+      <article class="project is-half" data-tone="green">
+        <span class="project-glow"></span>
+        <div>
+          <div class="project-meta">
+            <span class="badge">Zero-to-one · Compass Digital</span>
+            <span class="dot"></span>
+            <span>2016 — 2017</span>
+          </div>
+          <h3>Mobile-Boost — campus food ordering</h3>
+          <p class="project-desc">
+            Took Mobile-Boost from <strong>blank-screen prototype</strong> to launched iOS app — campus food ordering with the full e-commerce surface (catalog, cart, checkout, order tracking). Zero-to-one consumer build, shipped iteratively in a tight loop with designers and real users. Built reusable in-house frameworks that accelerated feature delivery across the team.
+          </p>
+          <div class="chips">
+            <span class="chip">Swift</span>
+            <span class="chip">MVC · MVVM</span>
+            <span class="chip">REST</span>
+            <span class="chip">In-app payments</span>
+            <span class="chip">XCTest</span>
+          </div>
+          <div class="project-vis vis-food" style="margin-top: 18px; aspect-ratio: auto;">
+            <div class="food-card">
+              <div class="food-thumb">🥗</div>
+              <div>
+                <div class="name">Harvest Bowl</div>
+                <div class="desc">Quinoa · roasted veg</div>
+              </div>
+              <div class="px">$9.50</div>
+            </div>
+            <div class="food-card">
+              <div class="food-thumb" style="background: linear-gradient(135deg,#ff8c00,#ff3a00);">🌮</div>
+              <div>
+                <div class="name">Carnitas Tacos · 3</div>
+                <div class="desc">House salsa · lime</div>
+              </div>
+              <div class="px">$11.00</div>
+            </div>
+            <div class="checkout">Checkout · $20.50</div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Project: RBC DRIVE -->
+      <article class="project is-half" data-tone="cyan">
+        <span class="project-glow"></span>
+        <div>
+          <div class="project-meta">
+            <span class="badge">Production · RBC Ventures</span>
+            <span class="dot"></span>
+            <span>2019 — 2020</span>
+          </div>
+          <h3>RBC DRIVE — Objective-C → Swift 5</h3>
+          <p class="project-desc">
+            Drove development of the <strong>DRIVE</strong> consumer iOS app (MVVM, Swift) — a polished, user-facing experience. Owned the codebase <strong>migration from Objective-C to Swift 5</strong>, raising code quality and unblocking adoption of modern Apple frameworks. Built reusable in-house components (calendar, barcode scanner) and a watchOS schedule-viewer companion.
+          </p>
+          <div class="chips">
+            <span class="chip">Swift 5</span>
+            <span class="chip">MVVM</span>
+            <span class="chip">watchOS</span>
+            <span class="chip">Objective-C migration</span>
+            <span class="chip">Xcode Instruments</span>
+          </div>
+          <div class="project-vis vis-drive" style="margin-top: 18px; aspect-ratio: auto;">
+            <div class="drive-stat">
+              <div class="l">Distance this week</div>
+              <div class="v">412.3 <small>km</small></div>
+            </div>
+            <div class="drive-stat">
+              <div class="l">Avg eco score</div>
+              <div class="v">87 <small>/ 100</small></div>
+            </div>
+            <div class="drive-stat">
+              <div class="l">Next service</div>
+              <div class="v">2,140 <small>km</small></div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Project: RightBlue Wellness -->
+      <article class="project is-half" data-tone="pink">
+        <span class="project-glow"></span>
+        <div>
+          <div class="project-meta">
+            <span class="badge">Production · RightBlue Labs</span>
+            <span class="dot"></span>
+            <span>2016 — 2017</span>
+          </div>
+          <h3>Athlete wellness — HealthKit integration</h3>
+          <p class="project-desc">
+            Built iOS apps that helped athletes <strong>monitor and reduce illness and burnout</strong>, using MVC and MVVM in Swift. Designed and shipped <strong>seamless HealthKit integration</strong> to read activity, heart-rate, and sleep signals — surfacing real-time health data into the user-facing experience. Mentored a team of two junior mobile engineers via code review and pair programming.
+          </p>
+          <div class="chips">
+            <span class="chip">HealthKit</span>
+            <span class="chip">Swift</span>
+            <span class="chip">MVC · MVVM</span>
+            <span class="chip">REST</span>
+            <span class="chip">CI / Automation</span>
+          </div>
+          <div class="project-vis vis-health" style="margin-top: 18px; aspect-ratio: auto;">
+            <div class="hr-card">
+              <svg class="heart" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 21s-7-4.35-9.5-9.07C.61 8.07 2.83 4 7 4c2 0 3.5 1.1 5 3 1.5-1.9 3-3 5-3 4.17 0 6.39 4.07 4.5 7.93C19 16.65 12 21 12 21z"/>
+              </svg>
+              <div style="flex:1; margin-left:14px;">
+                <div class="l">Resting heart-rate · 7-day avg</div>
+                <div class="v">62 <span style="font-size:14px; color: rgba(255,255,255,0.5)">bpm</span></div>
+              </div>
+            </div>
+            <div class="hr-card">
+              <div style="flex:1;">
+                <div class="l">Sleep score · last night</div>
+                <div class="v">84 <span style="font-size:14px; color: rgba(255,255,255,0.5)">/ 100</span></div>
+              </div>
+              <div style="font-family: var(--ff-mono); color: var(--green); font-size:12px;">▲ ON-TRACK</div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Project: Handheld Contact -->
+      <article class="project is-half" data-tone="blue">
+        <span class="project-glow"></span>
+        <div>
+          <div class="project-meta">
+            <span class="badge">Production · Keystroke</span>
+            <span class="dot"></span>
+            <span>2017 — 2019</span>
+          </div>
+          <h3>Handheld Contact — iOS &amp; macOS CRM</h3>
+          <p class="project-desc">
+            Rewrote and shipped the <strong>Handheld Contact</strong> iOS CRM for ACT! users — Contacts, Notes, Tasks, Opportunities, custom searches, and secondary-contacts modules. Also shipped the <strong>macOS companion</strong>. Built reusable iOS libraries: a Swift <strong>Gantt-chart</strong> view for the mobile planner, a <strong>Tesseract-based business-card OCR</strong> scanner, and a <strong>MapKit</strong>-driven nearby-contacts feature.
+          </p>
+          <div class="chips">
+            <span class="chip">Swift</span>
+            <span class="chip">macOS</span>
+            <span class="chip">MapKit</span>
+            <span class="chip">Tesseract OCR</span>
+            <span class="chip">Pair programming · TDD</span>
+          </div>
+          <div class="project-vis vis-crm" style="margin-top: 18px; aspect-ratio: auto;">
+            <div class="gantt">
+              <div class="gantt-row"><span class="gantt-label">Acquire</span><span class="gantt-bar"></span></div>
+              <div class="gantt-row"><span class="gantt-label">Onboard</span><span class="gantt-bar b2"></span></div>
+              <div class="gantt-row"><span class="gantt-label">Negotiate</span><span class="gantt-bar b3"></span></div>
+              <div class="gantt-row"><span class="gantt-label">Close</span><span class="gantt-bar b4"></span></div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============== SKILLS ============== -->
+<section id="skills">
+  <div class="container">
+    <div class="section-head">
+      <span class="section-num reveal">03 / Skills</span>
+      <h2 class="section-title reveal" data-delay="1">The toolkit, <em>day to day.</em></h2>
+      <p class="section-sub reveal" data-delay="2">A working set — what I reach for, in roughly the order I reach for it.</p>
+    </div>
+
+    <div class="skills-grid">
+      <div class="skill-card reveal">
+        <div class="cat">
+          <div class="ic">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg>
+          </div>
+          <h4>Languages</h4>
+        </div>
+        <div class="skill-list">
+          <span class="chip">Swift</span>
+          <span class="chip">Objective-C</span>
+          <span class="chip">JavaScript</span>
+          <span class="chip">Java · Kotlin (basic)</span>
+        </div>
+      </div>
+
+      <div class="skill-card pink reveal" data-delay="1">
+        <div class="cat">
+          <div class="ic">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="3" width="16" height="18" rx="3"/><path d="M12 21v-4"/></svg>
+          </div>
+          <h4>Apple frameworks</h4>
+        </div>
+        <div class="skill-list">
+          <span class="chip">SwiftUI</span>
+          <span class="chip">UIKit</span>
+          <span class="chip">Combine</span>
+          <span class="chip">Swift Concurrency</span>
+          <span class="chip">async / await · actors</span>
+          <span class="chip">Core Data</span>
+          <span class="chip">XCTest</span>
+          <span class="chip">WidgetKit</span>
+          <span class="chip">ActivityKit · Live Activities</span>
+          <span class="chip">Dynamic Island</span>
+          <span class="chip">App Intents</span>
+          <span class="chip">MapKit · CoreLocation</span>
+          <span class="chip">HealthKit</span>
+          <span class="chip">AVFoundation</span>
+          <span class="chip">WatchKit</span>
+        </div>
+      </div>
+
+      <div class="skill-card yellow reveal" data-delay="2">
+        <div class="cat">
+          <div class="ic">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3 7 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg>
+          </div>
+          <h4>AI-native development</h4>
+        </div>
+        <div class="skill-list">
+          <span class="chip">Claude Code</span>
+          <span class="chip">GitHub Copilot</span>
+          <span class="chip">Agentic workflows</span>
+          <span class="chip">MCP · function calling</span>
+          <span class="chip">Prompt engineering</span>
+          <span class="chip">Context-window mgmt</span>
+          <span class="chip">Custom AI skills</span>
+          <span class="chip">AI-driven PR review</span>
+          <span class="chip">AI-assisted refactoring</span>
+        </div>
+      </div>
+
+      <div class="skill-card green reveal" data-delay="3">
+        <div class="cat">
+          <div class="ic">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 010 18M12 3a14 14 0 000 18"/></svg>
+          </div>
+          <h4>Architecture</h4>
+        </div>
+        <div class="skill-list">
+          <span class="chip">MVVM</span>
+          <span class="chip">MVC</span>
+          <span class="chip">Modular SwiftUI components</span>
+          <span class="chip">Reactive programming</span>
+          <span class="chip">Dependency injection</span>
+          <span class="chip">Reusable UI libraries</span>
+        </div>
+      </div>
+
+      <div class="skill-card cyan reveal" data-delay="1">
+        <div class="cat">
+          <div class="ic">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L4 6v6c0 5 3.5 8 8 10 4.5-2 8-5 8-10V6l-8-4z"/></svg>
+          </div>
+          <h4>Tooling &amp; CI / CD</h4>
+        </div>
+        <div class="skill-list">
+          <span class="chip">Xcode · Instruments</span>
+          <span class="chip">Fastlane</span>
+          <span class="chip">Jenkins</span>
+          <span class="chip">GitHub</span>
+          <span class="chip">App Store Connect</span>
+          <span class="chip">TestFlight</span>
+          <span class="chip">Git · BitBucket</span>
+          <span class="chip">SourceTree</span>
+        </div>
+      </div>
+
+      <div class="skill-card indigo reveal" data-delay="2">
+        <div class="cat">
+          <div class="ic">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 00.3 1.8l.1.1a2 2 0 11-2.8 2.8l-.1-.1a1.7 1.7 0 00-1.8-.3 1.7 1.7 0 00-1 1.5V21a2 2 0 11-4 0v-.1a1.7 1.7 0 00-1.1-1.6 1.7 1.7 0 00-1.8.3l-.1.1a2 2 0 11-2.8-2.8l.1-.1a1.7 1.7 0 00.3-1.8 1.7 1.7 0 00-1.5-1H3a2 2 0 110-4h.1a1.7 1.7 0 001.6-1.1 1.7 1.7 0 00-.3-1.8l-.1-.1a2 2 0 112.8-2.8l.1.1a1.7 1.7 0 001.8.3H9a1.7 1.7 0 001-1.5V3a2 2 0 114 0v.1a1.7 1.7 0 001 1.5 1.7 1.7 0 001.8-.3l.1-.1a2 2 0 112.8 2.8l-.1.1a1.7 1.7 0 00-.3 1.8V9a1.7 1.7 0 001.5 1H21a2 2 0 110 4h-.1a1.7 1.7 0 00-1.5 1z"/></svg>
+          </div>
+          <h4>Quality &amp; process</h4>
+        </div>
+        <div class="skill-list">
+          <span class="chip">TDD</span>
+          <span class="chip">Unit &amp; UI testing (XCTest)</span>
+          <span class="chip">Accessibility (VoiceOver, Dynamic Type)</span>
+          <span class="chip">Apple HIG</span>
+          <span class="chip">Code review</span>
+          <span class="chip">Pair programming</span>
+          <span class="chip">Feature flagging</span>
+          <span class="chip">Release management</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Highlights -->
+    <div class="highlights">
+      <div class="hl blue reveal">
+        <div class="hl-num">6</div>
+        <div class="hl-title">Apple platforms</div>
+        <div class="hl-desc">iOS, iPadOS, macOS, tvOS, watchOS, and visionOS — native code on all six. Not an iOS-only engineer.</div>
+      </div>
+      <div class="hl pink reveal" data-delay="1">
+        <div class="hl-num">2 →</div>
+        <div class="hl-title">Major migrations led</div>
+        <div class="hl-desc">Objective-C → Swift 5 at RBC Ventures, and UIKit → SwiftUI at Rogers — both end-to-end.</div>
+      </div>
+      <div class="hl yellow reveal" data-delay="2">
+        <div class="hl-num">★</div>
+        <div class="hl-title">Awards &amp; recognition</div>
+        <div class="hl-desc">MAGNUS Catalyst Award (Biotalent Canada, 2017) · Hackathon winner — stress-tracking chatbot at Rogers.</div>
+      </div>
+    </div>
+
+    <!-- Education / Certs -->
+    <div style="margin-top: 48px; display: grid; grid-template-columns: 1fr 1fr; gap: 14px;" class="edu-grid">
+      <div class="skill-card reveal">
+        <div class="cat">
+          <div class="ic">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+          </div>
+          <h4>Education</h4>
+        </div>
+        <div style="color: var(--muted); font-size: 14.5px; line-height: 1.65;">
+          <div style="margin-bottom: 14px;">
+            <div style="color: var(--text); font-weight: 600;">Post-Graduate, Mobile Application Development</div>
+            <div>Lambton College, Toronto · 2013 – 2014</div>
+          </div>
+          <div>
+            <div style="color: var(--text); font-weight: 600;">B.Tech, Electronics &amp; Communication Engineering</div>
+            <div>JNTUK University, Andhra Pradesh, India · 2009 – 2013</div>
+          </div>
+        </div>
+      </div>
+      <div class="skill-card pink reveal" data-delay="1">
+        <div class="cat">
+          <div class="ic">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="6"/><path d="M9 14l-2 8 5-3 5 3-2-8"/></svg>
+          </div>
+          <h4>Certifications &amp; achievements</h4>
+        </div>
+        <div class="skill-list">
+          <span class="chip">AWS Training — Developer (Amazon)</span>
+          <span class="chip">Certified Cyber Security Expert L1 (IIT Kharagpur)</span>
+          <span class="chip">MAGNUS Catalyst Award · Biotalent Canada · 2017</span>
+          <span class="chip">Hackathon winner · stress-tracking chatbot · Rogers</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== CONTACT ============== -->
+<section id="contact" class="contact">
+  <div class="container">
+    <h2 class="reveal">Let's <em>build something native.</em></h2>
+    <p class="reveal" data-delay="1">
+      Based in <strong>Millbrook, Ontario</strong> — open to Senior &amp; Staff <strong>native Apple-platforms roles</strong> (iOS, iPadOS, macOS, tvOS, watchOS, visionOS). Full-time or long-term contract, Toronto / GTA or remote (Canada). If you're building a premium native surface on any Apple platform and want a senior partner who treats AI as leverage, let's talk.
+    </p>
+    <div class="contact-links reveal" data-delay="2">
+      <a class="contact-link primary" href="mailto:tejanvm92@gmail.com">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+        tejanvm92@gmail.com
+      </a>
+      <a class="contact-link" href="https://www.linkedin.com/in/venkatanandamuri" target="_blank" rel="noopener">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3A2 2 0 0121 5v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h14zM8.34 18.34V10.5H5.67v7.84h2.67zM7 9.34A1.5 1.5 0 107 6.34a1.5 1.5 0 000 3zm11.34 9V13.9c0-2.4-1.27-3.5-2.97-3.5-1.37 0-1.99.76-2.33 1.29V10.5h-2.67c.04.75 0 7.84 0 7.84h2.67v-4.38c0-.24.02-.48.09-.65.19-.47.62-.97 1.34-.97.95 0 1.33.72 1.33 1.78v4.22h2.54z"/></svg>
+        LinkedIn
+      </a>
+      <a class="contact-link" href="https://github.com/Venkata-Maniteja" target="_blank" rel="noopener">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.57.11.78-.25.78-.55v-2.13c-3.2.7-3.87-1.37-3.87-1.37-.52-1.33-1.27-1.68-1.27-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.02 1.75 2.68 1.24 3.34.95.1-.74.4-1.24.72-1.53-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.18-3.09-.12-.29-.51-1.46.11-3.04 0 0 .97-.31 3.18 1.18a11.04 11.04 0 015.79 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.58.24 2.75.12 3.04.74.8 1.18 1.83 1.18 3.09 0 4.42-2.7 5.39-5.27 5.68.41.36.78 1.07.78 2.16v3.21c0 .31.2.67.79.55C20.21 21.39 23.5 17.08 23.5 12c0-6.35-5.15-11.5-11.5-11.5z"/></svg>
+        GitHub
+      </a>
+      <a class="contact-link" href="tel:+16477700932">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.13.96.36 1.9.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0122 16.92z"/></svg>
+        647-770-0932
+      </a>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="footer">
+      <div>© 2026 Venkata Maniteja Nandamuri · Built with Swift-level care.</div>
+      <div>Millbrook, Ontario · 🇨🇦 · v1.0</div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // ----- Scroll progress -----
+  const progress = document.getElementById('progress');
+  const onScroll = () => {
+    const h = document.documentElement;
+    const ratio = h.scrollTop / (h.scrollHeight - h.clientHeight);
+    progress.style.transform = `scaleX(${ratio})`;
+  };
+  document.addEventListener('scroll', onScroll, { passive: true });
+
+  // ----- Reveal on scroll -----
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting){
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // ----- Project tilt / glow -----
+  document.querySelectorAll('.project').forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const r = card.getBoundingClientRect();
+      const x = ((e.clientX - r.left) / r.width) * 100;
+      const y = ((e.clientY - r.top) / r.height) * 100;
+      card.style.setProperty('--mx', x + '%');
+      card.style.setProperty('--my', y + '%');
+    });
+  });
+
+  // ----- Smooth-scroll nav offset (account for sticky pill) -----
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', (e) => {
+      const id = a.getAttribute('href');
+      if (id && id.length > 1) {
+        const el = document.querySelector(id);
+        if (el){
+          e.preventDefault();
+          const y = el.getBoundingClientRect().top + window.scrollY - 24;
+          window.scrollTo({ top: y, behavior: 'smooth' });
+        }
+      }
+    });
+  });
+</script>
+</body>
+</html>
