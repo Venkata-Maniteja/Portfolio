@@ -1184,105 +1184,10 @@
     <div class="section-head">
       <span class="section-num reveal">02 / Selected work</span>
       <h2 class="section-title reveal" data-delay="1">Things I've <em>shipped &amp; built.</em></h2>
-      <p class="section-sub reveal" data-delay="2">A cross-section of apps and tools — production iOS for millions of users, personal AI-native dev tooling, and the occasional hackathon win.</p>
+      <p class="section-sub reveal" data-delay="2">Personal products that solve real problems, plus deep professional work at scale.</p>
     </div>
 
     <div class="projects-grid">
-
-      <!-- Project: iTrade -->
-      <article class="project" data-tone="blue">
-        <span class="project-glow"></span>
-        <div>
-          <div class="project-meta">
-            <span class="badge">Featured · Production</span>
-            <span class="dot"></span>
-            <span>2021 — Present</span>
-            <span class="dot"></span>
-            <span>Scotiabank</span>
-          </div>
-          <h3>iTrade &amp; Scotiabank Mobile — banking + trading on iOS</h3>
-          <p class="project-desc">
-            Lead iOS developer and release captain on Scotiabank's iOS portfolio — both <strong>iTrade</strong> (the self-directed trading and money-movement platform, released 2022) and <strong>Scotiabank Mobile</strong> (the flagship consumer banking app, <strong>4.3M+ active mobile users in Canada</strong>). I ship <strong>Live Activities (ActivityKit)</strong> and <strong>Dynamic Island</strong> surfaces that deliver real-time trade status as ambient, glanceable experiences — plus a library of reusable <strong>SwiftUI / Combine</strong> components that replaced legacy UIKit views across both apps and unblocked cross-team feature delivery. I own release management via App Store Connect / TestFlight and coordinate pen-testing with Blackduck, Fortify, and NowSecure.
-          </p>
-          <div class="chips">
-            <span class="chip">SwiftUI</span>
-            <span class="chip">Combine</span>
-            <span class="chip">ActivityKit</span>
-            <span class="chip">Dynamic Island</span>
-            <span class="chip">Swift Concurrency</span>
-            <span class="chip">App Store Connect</span>
-            <span class="chip">Blackduck · Fortify</span>
-          </div>
-          <a class="project-link" href="https://apps.apple.com/ca/app/scotia-itrade/id1538377041" target="_blank" rel="noopener">
-            View on the App Store
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M9 7h8v8"/></svg>
-          </a>
-        </div>
-        <div class="project-vis vis-itrade">
-          <div class="vis-itrade-island">
-            <span class="iv-dot"></span>
-            <span>AAPL · BUY 100 · filled</span>
-          </div>
-          <div class="vis-itrade-row">
-            <div class="l"><span class="sym">AAPL</span><span class="nm">Apple Inc.</span></div>
-            <div class="r"><span class="px">$192.45</span><span class="ch up">+2.18%</span></div>
-          </div>
-          <div class="vis-itrade-row">
-            <div class="l"><span class="sym">TSLA</span><span class="nm">Tesla</span></div>
-            <div class="r"><span class="px">$248.30</span><span class="ch up">+0.74%</span></div>
-          </div>
-          <div class="vis-itrade-row">
-            <div class="l"><span class="sym">BNS</span><span class="nm">Scotiabank</span></div>
-            <div class="r"><span class="px">$66.81</span><span class="ch down">-0.32%</span></div>
-          </div>
-          <svg class="vis-itrade-spark" viewBox="0 0 280 50" preserveAspectRatio="none" style="height:50px">
-            <path d="M0,32 L20,28 L40,36 L60,22 L80,28 L100,18 L120,24 L140,12 L160,18 L180,8 L200,14 L220,6 L240,10 L260,4 L280,8" fill="none" stroke="#5b6bff" stroke-width="2" stroke-linejoin="round"/>
-          </svg>
-        </div>
-      </article>
-
-      <!-- Project: AI MCP tooling -->
-      <article class="project" data-tone="pink">
-        <span class="project-glow"></span>
-        <div class="project-vis vis-mcp">
-          <div class="term">
-            <div><span class="prompt">$</span> claude run figma-mcp <span class="muted">--ticket ITR-2841</span></div>
-            <div class="muted">→ fetching design from Figma…</div>
-            <div class="info">✓ extracted 14 components, 6 states</div>
-            <div class="info">✓ matched to design-system tokens</div>
-            <div><span class="prompt">$</span> claude run jira-mcp <span class="muted">--branch &amp; pr</span></div>
-            <div class="ok">✓ branch feat/ITR-2841 created</div>
-            <div class="ok">✓ PR drafted · scoped to acceptance criteria</div>
-            <div><span class="prompt">$</span> claude run spm-switch <span class="muted">core-ui local</span></div>
-            <div class="ok">✓ Package.swift rewritten · pinned to ../core-ui</div>
-          </div>
-          <div class="term">
-            <div class="info"># Custom Claude skill manifest</div>
-            <div><span class="muted">skill:</span> <span class="ok">"ios-pr-review"</span></div>
-            <div><span class="muted">model:</span> <span class="ok">claude-sonnet-4-6</span></div>
-            <div><span class="muted">mcp:</span> [figma, jira, bitbucket, spm]</div>
-          </div>
-        </div>
-        <div>
-          <div class="project-meta">
-            <span class="badge">Personal · Internal tooling</span>
-            <span class="dot"></span>
-            <span>2024 — Present</span>
-          </div>
-          <h3>AI-native dev tooling for iOS teams</h3>
-          <p class="project-desc">
-            A suite of <strong>custom Claude skills</strong> and MCP integrations my team uses daily across the iOS dev cycle. Connects Claude to <strong>Figma (Figma MCP)</strong>, <strong>JIRA</strong>, <strong>BitBucket</strong>, and <strong>Swift Package Manager</strong> — automating ticket comprehension, branch / PR creation, PR review, and on-demand local ↔ remote SPM dependency switching. Designed with explicit context-window management and prompt engineering so engineers spend time on architectural judgment, not boilerplate.
-          </p>
-          <div class="chips">
-            <span class="chip">Claude Code</span>
-            <span class="chip">MCP / Function calling</span>
-            <span class="chip">Figma MCP</span>
-            <span class="chip">JIRA · BitBucket</span>
-            <span class="chip">Prompt engineering</span>
-            <span class="chip">Swift Package Manager</span>
-          </div>
-        </div>
-      </article>
 
       <!-- Project: True Balance -->
       <article class="project" data-tone="green">
@@ -1336,68 +1241,6 @@
             <div style="color: rgba(255,255,255,0.5); margin-bottom: 4px;">Next up</div>
             <div>Overhead Press · 3×8 · 45 kg</div>
             <div>Triceps Extension · 3×12 · 15 kg</div>
-          </div>
-        </div>
-      </article>
-
-      <!-- Project: PromptZen -->
-      <article class="project" data-tone="yellow">
-        <span class="project-glow"></span>
-        <div>
-          <div class="project-meta">
-            <span class="badge">Personal · macOS · Open-source</span>
-            <span class="dot"></span>
-            <span>2024 — Present</span>
-            <span class="dot"></span>
-            <span>Swift Package</span>
-          </div>
-          <h3>PromptZen — a prompt studio &amp; LLM playground for macOS</h3>
-          <p class="project-desc">
-            A native <strong>macOS app</strong> (SwiftUI, Swift Package) for writing, organizing, and running prompts against <strong>14+ LLM providers</strong> with your own API keys — Ollama, OpenRouter, Gemini, Groq, Mistral, Hugging Face, Cerebras, Cohere, GitHub Models, Cloudflare Workers AI, NVIDIA NIM, and more. Ships with a <strong>built-in web tunnel</strong>: an embedded HTTP server (FlyingFox) plus optional ngrok bridge, so I can chat with my Mac's models from my phone or any browser. A companion <strong>VS Code extension</strong> brings the prompt library into the editor. Built with <strong>phased failover</strong> across model rotations, per-provider health indicators, and a Bearer-token-secured POST <code>/chat</code> API for custom clients.
-          </p>
-          <div class="chips">
-            <span class="chip">SwiftUI · macOS</span>
-            <span class="chip">Swift Package</span>
-            <span class="chip">FlyingFox HTTP</span>
-            <span class="chip">ngrok</span>
-            <span class="chip">Anthropic SDK</span>
-            <span class="chip">14+ LLM providers</span>
-            <span class="chip">VS Code extension</span>
-            <span class="chip">AppStorage · UserDefaults</span>
-          </div>
-          <a class="project-link" href="https://github.com/Venkata-Maniteja" target="_blank" rel="noopener">
-            Source &amp; docs on GitHub
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M9 7h8v8"/></svg>
-          </a>
-        </div>
-        <div class="project-vis vis-promptzen">
-          <div class="pz-window">
-            <div class="pz-titlebar">
-              <span class="pz-traffic r"></span><span class="pz-traffic y"></span><span class="pz-traffic g"></span>
-              <span class="pz-title">PromptZen · Playground</span>
-            </div>
-            <div class="pz-body">
-              <div class="pz-sidebar">
-                <div class="pz-prov on">● Ollama</div>
-                <div class="pz-prov on">● OpenRouter</div>
-                <div class="pz-prov on">● Gemini</div>
-                <div class="pz-prov off">● Groq</div>
-                <div class="pz-prov on">● Mistral</div>
-                <div class="pz-prov on">● Cerebras</div>
-                <div class="pz-prov idle">○ Cohere</div>
-                <div class="pz-prov idle">○ HF</div>
-              </div>
-              <div class="pz-editor">
-                <div class="pz-tag">SYSTEM</div>
-                <div class="pz-line">You are a senior iOS reviewer.</div>
-                <div class="pz-tag" style="margin-top:8px;">USER</div>
-                <div class="pz-line">Refactor this SwiftUI view to use <span class="pz-hl">@Observable</span>…</div>
-                <div class="pz-tunnel">
-                  <span class="pz-pulse"></span>
-                  <span>Web tunnel · <span class="pz-link">https://promptzen.ngrok.app</span></span>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </article>
@@ -1466,7 +1309,7 @@
             <span class="dot"></span>
             <span>Sparkle auto-update</span>
           </div>
-          <h3>LaunchSim — “The Simulator IDE.”</h3>
+          <h3>LaunchSim — "The Simulator IDE."</h3>
           <p class="project-desc">
             A native <strong>macOS app</strong> that turns iOS / tvOS / watchOS / visionOS simulators (and physical devices) into a <strong>composable debug workbench</strong>. Pick a simulator + app, tile up to six tools, and reach for the things Xcode hides: <strong>UserDefaults</strong>, <strong>keychain</strong>, <strong>sandbox</strong>, <strong>network capture</strong>, <strong>permissions</strong>, <strong>logs</strong>, <strong>location</strong>, <strong>biometrics</strong>, <strong>notifications</strong>, <strong>accessibility</strong>, and a dozen more — <strong>17 feature modules</strong> in total. Ships with built-in templates (Auth Debugging, Push Testing, UI Polish, Data Debugging) and <strong>session recording</strong> via <code>simctl io recordVideo</code> with auto-export.
           </p>
@@ -1493,137 +1336,175 @@
         </div>
       </article>
 
-      <!-- Project: Chrome extension -->
-      <article class="project" data-tone="cyan">
+      <!-- Project: PromptZen -->
+      <article class="project" data-tone="yellow">
         <span class="project-glow"></span>
         <div>
           <div class="project-meta">
-            <span class="badge">Personal · Chrome extension</span>
+            <span class="badge">Personal · macOS · Open-source</span>
+            <span class="dot"></span>
+            <span>2024 — Present</span>
+            <span class="dot"></span>
+            <span>Swift Package</span>
+          </div>
+          <h3>PromptZen — a prompt studio &amp; LLM playground for macOS</h3>
+          <p class="project-desc">
+            A native <strong>macOS app</strong> (SwiftUI, Swift Package) for writing, organizing, and running prompts against <strong>14+ LLM providers</strong> with your own API keys — Ollama, OpenRouter, Gemini, Groq, Mistral, Hugging Face, Cerebras, Cohere, GitHub Models, Cloudflare Workers AI, NVIDIA NIM, and more. Ships with a <strong>built-in web tunnel</strong>: an embedded HTTP server (FlyingFox) plus optional ngrok bridge, so I can chat with my Mac's models from my phone or any browser. A companion <strong>VS Code extension</strong> brings the prompt library into the editor. Built with <strong>phased failover</strong> across model rotations, per-provider health indicators, and a Bearer-token-secured POST <code>/chat</code> API for custom clients.
+          </p>
+          <div class="chips">
+            <span class="chip">SwiftUI · macOS</span>
+            <span class="chip">Swift Package</span>
+            <span class="chip">FlyingFox HTTP</span>
+            <span class="chip">ngrok</span>
+            <span class="chip">Anthropic SDK</span>
+            <span class="chip">14+ LLM providers</span>
+            <span class="chip">VS Code extension</span>
+            <span class="chip">AppStorage · UserDefaults</span>
+          </div>
+          <a class="project-link" href="https://github.com/Venkata-Maniteja" target="_blank" rel="noopener">
+            Source &amp; docs on GitHub
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M9 7h8v8"/></svg>
+          </a>
+        </div>
+        <div class="project-vis vis-promptzen">
+          <div class="pz-window">
+            <div class="pz-titlebar">
+              <span class="pz-traffic r"></span><span class="pz-traffic y"></span><span class="pz-traffic g"></span>
+              <span class="pz-title">PromptZen · Playground</span>
+            </div>
+            <div class="pz-body">
+              <div class="pz-sidebar">
+                <div class="pz-prov on">● Ollama</div>
+                <div class="pz-prov on">● OpenRouter</div>
+                <div class="pz-prov on">● Gemini</div>
+                <div class="pz-prov off">● Groq</div>
+                <div class="pz-prov on">● Mistral</div>
+                <div class="pz-prov on">● Cerebras</div>
+                <div class="pz-prov idle">○ Cohere</div>
+                <div class="pz-prov idle">○ HF</div>
+              </div>
+              <div class="pz-editor">
+                <div class="pz-tag">SYSTEM</div>
+                <div class="pz-line">You are a senior iOS reviewer.</div>
+                <div class="pz-tag" style="margin-top:8px;">USER</div>
+                <div class="pz-line">Refactor this SwiftUI view to use <span class="pz-hl">@Observable</span>…</div>
+                <div class="pz-tunnel">
+                  <span class="pz-pulse"></span>
+                  <span>Web tunnel · <span class="pz-link">https://promptzen.ngrok.app</span></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Project: AI MCP tooling -->
+      <article class="project" data-tone="pink">
+        <span class="project-glow"></span>
+        <div class="project-vis vis-mcp">
+          <div class="term">
+            <div><span class="prompt">$</span> claude run figma-mcp <span class="muted">--ticket ITR-2841</span></div>
+            <div class="muted">→ fetching design from Figma…</div>
+            <div class="info">✓ extracted 14 components, 6 states</div>
+            <div class="info">✓ matched to design-system tokens</div>
+            <div><span class="prompt">$</span> claude run jira-mcp <span class="muted">--branch &amp; pr</span></div>
+            <div class="ok">✓ branch feat/ITR-2841 created</div>
+            <div class="ok">✓ PR drafted · scoped to acceptance criteria</div>
+            <div><span class="prompt">$</span> claude run spm-switch <span class="muted">core-ui local</span></div>
+            <div class="ok">✓ Package.swift rewritten · pinned to ../core-ui</div>
+          </div>
+          <div class="term">
+            <div class="info"># Custom Claude skill manifest</div>
+            <div><span class="muted">skill:</span> <span class="ok">"ios-pr-review"</span></div>
+            <div><span class="muted">model:</span> <span class="ok">claude-sonnet-4-6</span></div>
+            <div><span class="muted">mcp:</span> [figma, jira, bitbucket, spm]</div>
+          </div>
+        </div>
+        <div>
+          <div class="project-meta">
+            <span class="badge">Personal · Internal tooling</span>
             <span class="dot"></span>
             <span>2024 — Present</span>
           </div>
-          <h3>Context-bridge — Confluence &amp; JIRA → AI</h3>
+          <h3>AI-native dev tooling for iOS teams</h3>
           <p class="project-desc">
-            A Chrome extension that extracts <strong>Confluence pages</strong> and <strong>JIRA ticket details</strong> and feeds <strong>structured, prompt-engineered context</strong> to AI models. Gives PMs and engineers <em>context-window-aware</em> AI assistance for spec-to-task workflows — turning long-form specs and ticket trees into clean, actionable summaries, implementation plans, and test scaffolding.
+            A suite of <strong>custom Claude skills</strong> and MCP integrations my team uses daily across the iOS dev cycle. Connects Claude to <strong>Figma (Figma MCP)</strong>, <strong>JIRA</strong>, <strong>BitBucket</strong>, and <strong>Swift Package Manager</strong> — automating ticket comprehension, branch / PR creation, PR review, and on-demand local ↔ remote SPM dependency switching. Designed with explicit context-window management and prompt engineering so engineers spend time on architectural judgment, not boilerplate.
           </p>
           <div class="chips">
-            <span class="chip">JavaScript</span>
-            <span class="chip">Chrome Manifest V3</span>
-            <span class="chip">Confluence · JIRA APIs</span>
+            <span class="chip">Claude Code</span>
+            <span class="chip">MCP / Function calling</span>
+            <span class="chip">Figma MCP</span>
+            <span class="chip">JIRA · BitBucket</span>
             <span class="chip">Prompt engineering</span>
-            <span class="chip">Context-window management</span>
-          </div>
-        </div>
-        <div class="project-vis vis-ext">
-          <div class="browser-bar">
-            <span class="browser-dot"></span><span class="browser-dot"></span><span class="browser-dot"></span>
-            <span class="browser-url">scotiabank.atlassian.net/browse/ITR-2841</span>
-          </div>
-          <div class="ext-panel">
-            <div class="hdr">
-              <span>Context-bridge</span>
-              <span class="pill">● ready</span>
-            </div>
-            <div class="ext-line"><span class="k">ticket:</span> <span class="v">ITR-2841 · Add Live Activity to order flow</span></div>
-            <div class="ext-line"><span class="k">parent:</span> <span class="v">EPIC iTrade · Trade UX 2025</span></div>
-            <div class="ext-line"><span class="k">confluence:</span> <span class="v">3 specs · 14k tokens (compressed → 2.1k)</span></div>
-            <div class="ext-line"><span class="k">acceptance:</span> <span class="v">8 criteria · extracted</span></div>
-            <div class="ext-line" style="margin-top:10px; color: var(--green);">→ context piped to Claude · ready to plan</div>
+            <span class="chip">Swift Package Manager</span>
           </div>
         </div>
       </article>
 
-      <!-- HALF-WIDTH ROW -->
-
-      <!-- Project: CityNews widgets -->
-      <article class="project is-half" data-tone="pink">
+      <!-- Project: iTrade -->
+      <article class="project" data-tone="blue">
         <span class="project-glow"></span>
         <div>
           <div class="project-meta">
-            <span class="badge">Production · Rogers</span>
+            <span class="badge">Featured · Production</span>
             <span class="dot"></span>
-            <span>2020 — 2021</span>
+            <span>2021 — Present</span>
+            <span class="dot"></span>
+            <span>Scotiabank</span>
           </div>
-          <h3>News &amp; radio — iOS 14 home-screen widgets</h3>
+          <h3>iTrade &amp; Scotiabank Mobile — Live Activities, Dynamic Island &amp; scale</h3>
           <p class="project-desc">
-            Designed and shipped <strong>iOS 14 home-screen widgets</strong> and special-events flows for <strong>680, 660, 570 News</strong> and <strong>CityNews Toronto</strong>. Used behavioral data and in-app feedback to prioritize features that boosted engagement and retention. Also drove <strong>Chromecast / AirPlay</strong> integrations across CityTV / FX streaming apps.
+            Lead iOS developer and release captain on Scotiabank's iOS portfolio — both <strong>iTrade</strong> (the self-directed trading and money-movement platform, released 2022) and <strong>Scotiabank Mobile</strong> (the flagship consumer banking app, <strong>4.3M+ active mobile users in Canada</strong>). I ship <strong>Live Activities (ActivityKit)</strong> and <strong>Dynamic Island</strong> surfaces that deliver real-time trade status as ambient, glanceable experiences — plus a library of reusable <strong>SwiftUI / Combine</strong> components that replaced legacy UIKit views across both apps and unblocked cross-team feature delivery. I own release management via App Store Connect / TestFlight and coordinate pen-testing with Blackduck, Fortify, and NowSecure.
           </p>
           <div class="chips">
-            <span class="chip">WidgetKit</span>
             <span class="chip">SwiftUI</span>
-            <span class="chip">UIKit → SwiftUI</span>
-            <span class="chip">Chromecast · AirPlay</span>
-            <span class="chip">Brightcove SDK</span>
+            <span class="chip">Combine</span>
+            <span class="chip">ActivityKit</span>
+            <span class="chip">Dynamic Island</span>
+            <span class="chip">Swift Concurrency</span>
+            <span class="chip">App Store Connect</span>
+            <span class="chip">Blackduck · Fortify</span>
           </div>
-          <div class="project-vis vis-news" style="margin-top: 18px; aspect-ratio: auto;">
-            <div class="news-tile">
-              <div class="src">CITYNEWS TORONTO · WIDGET</div>
-              <div class="hdl">TTC Line 1 partial service · streetcars rerouted at College</div>
-              <div class="time">5 min ago · Live</div>
-            </div>
-            <div class="news-tile">
-              <div class="src">680 NEWS · BREAKING</div>
-              <div class="hdl">Bank of Canada holds rates steady at 4.50%</div>
-              <div class="time">just now</div>
-            </div>
-          </div>
+          <a class="project-link" href="https://apps.apple.com/ca/app/scotia-itrade/id1538377041" target="_blank" rel="noopener">
+            View on the App Store
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M9 7h8v8"/></svg>
+          </a>
         </div>
-      </article>
-
-      <!-- Project: Mobile-Boost -->
-      <article class="project is-half" data-tone="green">
-        <span class="project-glow"></span>
-        <div>
-          <div class="project-meta">
-            <span class="badge">Zero-to-one · Compass Digital</span>
-            <span class="dot"></span>
-            <span>2016 — 2017</span>
+        <div class="project-vis vis-itrade">
+          <div class="vis-itrade-island">
+            <span class="iv-dot"></span>
+            <span>AAPL · BUY 100 · filled</span>
           </div>
-          <h3>Mobile-Boost — campus food ordering</h3>
-          <p class="project-desc">
-            Took Mobile-Boost from <strong>blank-screen prototype</strong> to launched iOS app — campus food ordering with the full e-commerce surface (catalog, cart, checkout, order tracking). Zero-to-one consumer build, shipped iteratively in a tight loop with designers and real users. Built reusable in-house frameworks that accelerated feature delivery across the team.
-          </p>
-          <div class="chips">
-            <span class="chip">Swift</span>
-            <span class="chip">MVC · MVVM</span>
-            <span class="chip">REST</span>
-            <span class="chip">In-app payments</span>
-            <span class="chip">XCTest</span>
+          <div class="vis-itrade-row">
+            <div class="l"><span class="sym">AAPL</span><span class="nm">Apple Inc.</span></div>
+            <div class="r"><span class="px">$192.45</span><span class="ch up">+2.18%</span></div>
           </div>
-          <div class="project-vis vis-food" style="margin-top: 18px; aspect-ratio: auto;">
-            <div class="food-card">
-              <div class="food-thumb">🥗</div>
-              <div>
-                <div class="name">Harvest Bowl</div>
-                <div class="desc">Quinoa · roasted veg</div>
-              </div>
-              <div class="px">$9.50</div>
-            </div>
-            <div class="food-card">
-              <div class="food-thumb" style="background: linear-gradient(135deg,#ff8c00,#ff3a00);">🌮</div>
-              <div>
-                <div class="name">Carnitas Tacos · 3</div>
-                <div class="desc">House salsa · lime</div>
-              </div>
-              <div class="px">$11.00</div>
-            </div>
-            <div class="checkout">Checkout · $20.50</div>
+          <div class="vis-itrade-row">
+            <div class="l"><span class="sym">TSLA</span><span class="nm">Tesla</span></div>
+            <div class="r"><span class="px">$248.30</span><span class="ch up">+0.74%</span></div>
           </div>
+          <div class="vis-itrade-row">
+            <div class="l"><span class="sym">BNS</span><span class="nm">Scotiabank</span></div>
+            <div class="r"><span class="px">$66.81</span><span class="ch down">-0.32%</span></div>
+          </div>
+          <svg class="vis-itrade-spark" viewBox="0 0 280 50" preserveAspectRatio="none" style="height:50px">
+            <path d="M0,32 L20,28 L40,36 L60,22 L80,28 L100,18 L120,24 L140,12 L160,18 L180,8 L200,14 L220,6 L240,10 L260,4 L280,8" fill="none" stroke="#5b6bff" stroke-width="2" stroke-linejoin="round"/>
+          </svg>
         </div>
       </article>
 
       <!-- Project: RBC DRIVE -->
-      <article class="project is-half" data-tone="cyan">
+      <article class="project" data-tone="cyan">
         <span class="project-glow"></span>
         <div>
           <div class="project-meta">
-            <span class="badge">Production · RBC Ventures</span>
+            <span class="badge">Production · Migration · RBC Ventures</span>
             <span class="dot"></span>
             <span>2019 — 2020</span>
           </div>
-          <h3>RBC DRIVE — Objective-C → Swift 5</h3>
+          <h3>RBC DRIVE — Objective-C → Swift 5 migration</h3>
           <p class="project-desc">
-            Drove development of the <strong>DRIVE</strong> consumer iOS app (MVVM, Swift) — a polished, user-facing experience. Owned the codebase <strong>migration from Objective-C to Swift 5</strong>, raising code quality and unblocking adoption of modern Apple frameworks. Built reusable in-house components (calendar, barcode scanner) and a watchOS schedule-viewer companion.
+            Drove development of the <strong>DRIVE</strong> consumer iOS app (MVVM, Swift) — a polished, user-facing experience. Owned the codebase <strong>migration from Objective-C to Swift 5</strong>, raising code quality and unblocking adoption of modern Apple frameworks. Built reusable in-house components (calendar, barcode scanner) and a watchOS schedule-viewer companion. End-to-end migration: architecture decisions, incremental rollout, mentoring team members on Swift idioms, and coordinating with QA to preserve parity across both codebases during the transition.
           </p>
           <div class="chips">
             <span class="chip">Swift 5</span>
@@ -1631,95 +1512,51 @@
             <span class="chip">watchOS</span>
             <span class="chip">Objective-C migration</span>
             <span class="chip">Xcode Instruments</span>
-          </div>
-          <div class="project-vis vis-drive" style="margin-top: 18px; aspect-ratio: auto;">
-            <div class="drive-stat">
-              <div class="l">Distance this week</div>
-              <div class="v">412.3 <small>km</small></div>
-            </div>
-            <div class="drive-stat">
-              <div class="l">Avg eco score</div>
-              <div class="v">87 <small>/ 100</small></div>
-            </div>
-            <div class="drive-stat">
-              <div class="l">Next service</div>
-              <div class="v">2,140 <small>km</small></div>
-            </div>
-          </div>
-        </div>
-      </article>
-
-      <!-- Project: RightBlue Wellness -->
-      <article class="project is-half" data-tone="pink">
-        <span class="project-glow"></span>
-        <div>
-          <div class="project-meta">
-            <span class="badge">Production · RightBlue Labs</span>
-            <span class="dot"></span>
-            <span>2016 — 2017</span>
-          </div>
-          <h3>Athlete wellness — HealthKit integration</h3>
-          <p class="project-desc">
-            Built iOS apps that helped athletes <strong>monitor and reduce illness and burnout</strong>, using MVC and MVVM in Swift. Designed and shipped <strong>seamless HealthKit integration</strong> to read activity, heart-rate, and sleep signals — surfacing real-time health data into the user-facing experience. Mentored a team of two junior mobile engineers via code review and pair programming.
-          </p>
-          <div class="chips">
-            <span class="chip">HealthKit</span>
-            <span class="chip">Swift</span>
-            <span class="chip">MVC · MVVM</span>
             <span class="chip">REST</span>
-            <span class="chip">CI / Automation</span>
           </div>
-          <div class="project-vis vis-health" style="margin-top: 18px; aspect-ratio: auto;">
-            <div class="hr-card">
-              <svg class="heart" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 21s-7-4.35-9.5-9.07C.61 8.07 2.83 4 7 4c2 0 3.5 1.1 5 3 1.5-1.9 3-3 5-3 4.17 0 6.39 4.07 4.5 7.93C19 16.65 12 21 12 21z"/>
-              </svg>
-              <div style="flex:1; margin-left:14px;">
-                <div class="l">Resting heart-rate · 7-day avg</div>
-                <div class="v">62 <span style="font-size:14px; color: rgba(255,255,255,0.5)">bpm</span></div>
-              </div>
-            </div>
-            <div class="hr-card">
-              <div style="flex:1;">
-                <div class="l">Sleep score · last night</div>
-                <div class="v">84 <span style="font-size:14px; color: rgba(255,255,255,0.5)">/ 100</span></div>
-              </div>
-              <div style="font-family: var(--ff-mono); color: var(--green); font-size:12px;">▲ ON-TRACK</div>
-            </div>
+        </div>
+        <div class="project-vis vis-drive">
+          <div class="drive-stat">
+            <div class="l">Distance this week</div>
+            <div class="v">412.3 <small>km</small></div>
+          </div>
+          <div class="drive-stat">
+            <div class="l">Avg eco score</div>
+            <div class="v">87 <small>/ 100</small></div>
+          </div>
+          <div class="drive-stat">
+            <div class="l">Next service</div>
+            <div class="v">2,140 <small>km</small></div>
           </div>
         </div>
       </article>
 
-      <!-- Project: Handheld Contact -->
-      <article class="project is-half" data-tone="blue">
-        <span class="project-glow"></span>
-        <div>
-          <div class="project-meta">
-            <span class="badge">Production · Keystroke</span>
-            <span class="dot"></span>
-            <span>2017 — 2019</span>
+      <!-- Also shipped at... -->
+      <div class="also-shipped" style="grid-column: span 12; margin-top: clamp(36px, 4vw, 56px);">
+        <div style="padding: clamp(28px, 3.5vw, 40px) clamp(26px, 3vw, 38px); background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg);">
+          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 18px;">
+            <span style="font-family: var(--ff-mono); font-size: 11px; color: var(--muted); letter-spacing: 0.06em; text-transform: uppercase; padding: 5px 11px; border: 1px solid var(--border); border-radius: var(--r-pill);">Also shipped at</span>
           </div>
-          <h3>Handheld Contact — iOS &amp; macOS CRM</h3>
-          <p class="project-desc">
-            Rewrote and shipped the <strong>Handheld Contact</strong> iOS CRM for ACT! users — Contacts, Notes, Tasks, Opportunities, custom searches, and secondary-contacts modules. Also shipped the <strong>macOS companion</strong>. Built reusable iOS libraries: a Swift <strong>Gantt-chart</strong> view for the mobile planner, a <strong>Tesseract-based business-card OCR</strong> scanner, and a <strong>MapKit</strong>-driven nearby-contacts feature.
-          </p>
-          <div class="chips">
-            <span class="chip">Swift</span>
-            <span class="chip">macOS</span>
-            <span class="chip">MapKit</span>
-            <span class="chip">Tesseract OCR</span>
-            <span class="chip">Pair programming · TDD</span>
-          </div>
-          <div class="project-vis vis-crm" style="margin-top: 18px; aspect-ratio: auto;">
-            <div class="gantt">
-              <div class="gantt-row"><span class="gantt-label">Acquire</span><span class="gantt-bar"></span></div>
-              <div class="gantt-row"><span class="gantt-label">Onboard</span><span class="gantt-bar b2"></span></div>
-              <div class="gantt-row"><span class="gantt-label">Negotiate</span><span class="gantt-bar b3"></span></div>
-              <div class="gantt-row"><span class="gantt-label">Close</span><span class="gantt-bar b4"></span></div>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px;">
+            <div style="display: flex; flex-direction: column; gap: 6px;">
+              <div style="font-family: var(--ff-display); font-size: 16px; font-weight: 600; color: var(--text);">Rogers · 2020–2021</div>
+              <div style="color: var(--muted); font-size: 13.5px; line-height: 1.5;">iOS 14 home-screen widgets for CityNews Toronto + 680/660/570 News. Chromecast / AirPlay across CityTV / FX streaming apps.</div>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 6px;">
+              <div style="font-family: var(--ff-display); font-size: 16px; font-weight: 600; color: var(--text);">Compass Digital · 2016–2017</div>
+              <div style="color: var(--muted); font-size: 13.5px; line-height: 1.5;">Mobile-Boost: zero-to-one campus food ordering iOS app (catalog, cart, checkout, tracking).</div>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 6px;">
+              <div style="font-family: var(--ff-display); font-size: 16px; font-weight: 600; color: var(--text);">RightBlue Labs · 2016–2017</div>
+              <div style="color: var(--muted); font-size: 13.5px; line-height: 1.5;">HealthKit-integrated athlete wellness apps (activity, heart-rate, sleep). Mentored two junior mobile engineers.</div>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 6px;">
+              <div style="font-family: var(--ff-display); font-size: 16px; font-weight: 600; color: var(--text);">Keystroke · 2017–2019</div>
+              <div style="color: var(--muted); font-size: 13.5px; line-height: 1.5;">Handheld Contact: iOS + macOS CRM for ACT! users. Built Gantt-chart, Tesseract OCR scanner, MapKit nearby-contacts.</div>
             </div>
           </div>
         </div>
-      </article>
+      </div>
 
     </div>
   </div>
